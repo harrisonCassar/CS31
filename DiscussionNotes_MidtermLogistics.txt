@@ -1,0 +1,27 @@
+Discussion notes:
+============================================================================================================
+
+whitespace = anyhting that appears as a blank on screen (tab, newline, space, etc.)
+
+ostream >> () will ignore consumption of any whitespace (leaves it in input stream)
+
+
+allowed a cheat-sheet;
+
+multiple-choice:
+
+error in code related to cin and getline (need to include cin.ignore)
+
+code error problem (tells you what code is suposed to do, and your job is to find the error, aka debugging)
+
+switch statement & syntax (flow control)
+
+code-tracing problem (what is the output of code) (most are multiple-choice; give you a list of outputs)
+
+free-response:
+
+programming problems (free-response)
+	-MAKE SURE TO FOLLOW INSTRUCTIONS; IF IT SAYS NUMBER INPUT, CANT ASSUME ITS INT OR DOUBLE OR LONG; 
+
+MAKE SURE TO PRACTICE WITH COUNTING VARIABLE SUMS; OUTPUT FINAL SUM AFTER DOING ITERATIONS
+STRINGS IN C++ ARE DIFFERENT THAN CSTRING

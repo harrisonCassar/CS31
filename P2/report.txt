@@ -1,0 +1,37 @@
+Harrison Cassar
+ID: 505114980
+Discussion 1F
+TA: Tao Zhou
+
+Report for CS31 Project 2: Rental Reckoning
+
+a. Brief description of notable obstacles I overcame:
+	-Distinguishing when to use the 'or' operator vs. the 'and' operator in boolean expressions when trying to evaluate for two potentially true conditions. This was especially an obstacle when I was initially setting up the conditions for testing the user's input of the rental month number.
+
+	-Making sure to correctly change per-mile charge depending on situation (i.e. making sure that the correct per-mile charge was being applied to the correct number of miles no matter the number of miles inputted).
+	
+	-Effectively organizing code to be easy to read, follow, understand, and elegant in nature by adding descriptive comments, clear separations between various processes, and eliminating the presence of "magic numbers."
+
+	-Lessons/Understandings while developing this solution:
+		-If you need to input two strings separately, since "getline" clears newline operator, there is no need for "cin.ignore" after first call of "getline".
+		
+		-The use of "cin" for the input of a single character is virtually the same as using "cin" for the input of an integer in terms of the fact that it does not consume the newline character '\n' inputted by the user. If a call of the "getline" function is made after, it would instantly consume the leftover '\n' inside of the input stream. Therefore, "cin.ignore" must be included after using "cin" for a character input if wanting to use "getline" for the next input.
+
+b. List of test data for inputs* to thoroughly test program:
+
+	*Inputs are expected in this order:
+	-Starting odometer reading
+	-End odometer reading
+	-Number of rental days
+	-Name of customer
+	-Whether or not the rental was a luxury car
+	-Month when rental was began
+
+	Test data:
+	-Negative value for starting odometer reading: -3232 (error)
+	-End odometer reading is less than starting odometer reading: 100, 50 (error)
+	-Negative value for number of rental days: 100, 300, -5 (error)
+	-Empty string for name of customer: 100, 300, 3, "" (error)
+	-Improper indication for luxury status of rental: 100, 300, 3, "Harrison", h (error)
+	-Improper indication for month of rental beginning (not in 1-12 inclusive range): 100, 300, 3, "Harrison", y, 18 (error)
+	-Input is valid: 100, 300, 3, "Harrison", y, 12 (no error)
