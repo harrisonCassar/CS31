@@ -1,0 +1,53 @@
+Harrison Cassar
+505114980
+Discussion Section:
+TA: 
+
+Report for CS31 Project 1
+
+1. Using Visual Studio C++ 2017.
+
+2. original.cpp: Provided C++ program entered into the Visual Studio C++ development environment.
+
+3. Built executable with "Start without Debugging"
+
+4. Ran executable automatially with last step with testing of resonable values:
+	
+	Input = registered voters surveyed, number voting for Newsom, number voting for Cox;
+	Output = % of total vote for Newsom, % of total vote for Cox;
+
+	Input						Output
+	100, 50, 40					50.0%, 40.0% 
+	32, 15, 1					46.9%, 3.1%	
+	78, 56, 13					71.8%, 16.7%
+	100, 35, 65					35.0%, 65.0%
+	5, 3, 0						60.0%, 0.0%
+
+5. Running program with input integers that cause it to produce incorrect, unsual, or nonsenical output.
+
+	Input = registered voters surveyed, number voting for Newsom, number voting for Cox;
+	Output = % of total vote for Newsom, % of total vote for Cox;
+
+	Input 						Output
+	100, 100, 100				100.0%, 100.0%
+	10, 25, 72					250.0%, 720.0%
+	0, 0, 5						-nan(ind)%, inf%
+	-1, 2, -2					-200.0%, 200.0%
+	9, 25, 72					277.8%, 800.0%
+
+6. logic_error.cpp: Introducing logic error of switching around the two places of the variables of "numberSurveyed" and "forNewsom" or "forCox" in their respecive lines (line 20-21) into source code. Essentially, 100 will be multiplied by the "numberSurveyed" and divided by "forNewsom" or "forCox" instead of the other way around. Build successfully made, yet produces incorrect outputs from reasonable inputs (as expected):
+
+	Input = registered voters surveyed, number voting for Newsom, number voting for Cox;
+	Output = % of total vote for Newsom, % of total vote for Cox;
+
+	Input						Output
+	100, 50, 40					200.0%, 250.0% 
+	32, 15, 1					213.3%, 3200.0%	
+	78, 56, 13					139.3%, 600.0%
+	100, 35, 65					285.7%, 153.8%
+	5, 3, 0						166.7%, inf%
+
+7. compile_error.cpp: Introducing multiple compilation errors.
+	-forgetting a semicolon (syntax error, as seen in line 9)
+	-not including iostream in the form of '#include <iostream>' at beginning of program (as seen in line 4)
+	-not declaring a variable that is in use by the function 'main' (in this case, 'main') (as seen in line 11)
