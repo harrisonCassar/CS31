@@ -130,7 +130,7 @@ int main()
 	double totalCharge = 0.0;
 
 	//determine base "per-day" charge
-	if (luxuryStatus = 'y')
+	if (luxuryStatus == 'y')
 		totalCharge += (BASE_CHARGE_LUXURY*rentalDays);
 	else
 		totalCharge += (BASE_CHARGE_NONLUXURY*rentalDays);
