@@ -187,7 +187,7 @@ int main()
 	cout.precision(2);
 
 	//output final calculated charge message
-	cout << "---\n" << "The rental charge for " << customerName << " is $" << totalCharge;
+	cout << "---\n" << "The rental charge for " << customerName << " is $" << totalCharge << endl;
 
 	//return success and end program
 	return 0;
