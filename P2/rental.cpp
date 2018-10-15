@@ -74,8 +74,8 @@ int main()
 	cout << "Rental days: ";
 	cin >> rentalDays;
 
-	//check if negative; return error if so
-	if (rentalDays < 0)
+	//check if not positive; return error if so
+	if (rentalDays <= 0)
 	{
 		cout << "---\n" << "The number of rental days must be positive.\n";
 		return 3;
