@@ -1,0 +1,25 @@
+Harrison Cassar
+Personal Notes
+
+Windows:
+-Scene --> what is in the game
+-Game --> what player can see
+-Inspector --> deeper info and such with selected object/property
+-Hiearchy --> used for selecting objects and dealing with overall game properties
+-Project --> shows all files (aka assets) used in a game (i.e. 3D models, audio files, scripts, and so on).
+
+==============================================================================================================
+
+-GameObject: everything we can see in the Scene
+-components: added to GameObject to change how they look/behave
+	-values can be set to change level of effect that a component has on GameObject
+	-custom components can be made by writing code
+	-example components:
+		-Rigidbody: part of physics systems
+			-GameObject will be subject to physics forces
+		-NavMeshAgent: part of AI system
+			-GameObject has ability to use AI to find its way around an environment
+		-Transform: holds data on GameObject's location, rotation, and scaling
+	
+-Prefab: saved GameObject file with all components included
+	-can click and drag Prefab from Project window onto Scene/Hiearchy windows
