@@ -12,7 +12,7 @@ Due: 11PM Thursday, Octover 18th
 
 2. It prints a half-pyramid (like stairs) made out of '#' characters at a user-specified height.
 
-3.  #include <iostream>
+3.  	#include <iostream>
 	using namespace std;
 
 	int main()
@@ -34,7 +34,7 @@ Due: 11PM Thursday, Octover 18th
 	    }
 	}
 
-4.  #include <iostream>
+4.  	#include <iostream>
 	using namespace std;
 
 	int main()
