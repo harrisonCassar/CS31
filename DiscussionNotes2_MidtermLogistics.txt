@@ -1,0 +1,51 @@
+
+
+-Potential Problem on knowing how to write a program in a do-while loop style
+	-DONT FORGET THE SEMICOLON
+	-Guarenteed to run at least once
+
+-might be references on mid-term, depending on whether or not he is able to go over it in class lecture
+
+-0 % by anything WILL EQUAL 0
+
+-Project 3: about string processing
+	-str.size()
+	-for (string::size_t i = 0; i < str.size(); i++)
+	-#include <cctype>
+		-isspace(c)
+		-isalpha(c)
+		-isdigit(c)
+		-islower(c)
+		-isupper(c)
+	-#include <string>
+		-have ability to work with strings
+	-character addition (mapping to ASCII Values)
+	-convert "123" --> 123
+		-int cast(string str)
+		-part of (probably) <string> library
+	-NOT ALLOWED TO USE atoi('2')
+
+-functions' arguments:
+	-pass by value
+		-int hello(int number); --> hello(var1)
+		-essentially passing in just a value copy
+	-pass by reference
+		-int hello(int& number); --> hello (var1); var1 will = whatever changed inside of function)
+		-essentially passing in the actual variable
+
+-MAKE SURE TO INCLUDE #include <string>
+
+-assignment operation returns value of assignment
+
+-unsigned type --> type that can't store a negative value
+	-unsigned int <====> unsigned
+	-purpose:
+		-compiler will catch any mistakes in assigning it a negative value
+		-can store 2x as many values
+	-only can have unsigned integer type (and characters too)
+	-having a captial 'U' after an intger means that it is unsigned
+
+-auto type --> automatically
+
+-PALINDRONE PROBLEMS ARE COMMON ON INTERVIEW QUESTIONS :OO
+
