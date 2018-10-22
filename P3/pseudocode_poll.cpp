@@ -58,22 +58,33 @@ bool hasProperSyntax(string pollData)
 	*/
 
 	/*
-	repeatedly:
+	repeatedly until end of string size:
 		find start of a state forecast
 			check proper state code
 			check proper party results following state code
 			if either not proper
 				return false
+	return true;
 	*/
-
-
 }
 
 //definition for "int tallySeats(string <name>, char <name>, int& <name>)"
 int tallySeats(string pollData, char party, int &seatTally)
 {
-	//
+	/*
+	check pollData string is proper
+		return 1 if not
+	check party character is proper (a letter)
+		return 2 if not
+
+	set seatTally to 0 to start with
+	capitalize string and copy of party completely
+
+	1. iterate through string until character matches party
+
+	2. move two positions forward to first digit
 
 
-	//MAKE SURE TO RETURN TALLY SEATS TO THE CORRECT CAPITALIZATION OF PARTYYY!!! in other words, DO NOT CAPITALIZE INPUT! only capitalize a copy of the input!
+	//MAKE SURE TO RETURN TALLY SEATS TO THE CORRECT CAPITALIZATION OF PARTYYY!!!
+	//in other words, DO NOT CAPITALIZE INPUT! only capitalize a copy of the input!
 }
