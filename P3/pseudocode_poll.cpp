@@ -80,10 +80,32 @@ int tallySeats(string pollData, char party, int &seatTally)
 	set seatTally to 0 to start with
 	capitalize string and copy of party completely
 
-	1. iterate through string until character matches party
+	find party result in state forecast
+		-move two characters forward
+		-iterate through string until character matches party
+			-if party character, read 2 characters back
+				-if letter --> read 1 character back --> add to seatTally
+				-if number --> add to seatTally
+		-increment counter variable, and continue iterating through (repeat)
+	*/
 
-	2. move two positions forward to first digit
+	/*
+	check if pollData string is proper
+		return 1 if not
+	check if party character is proper (a letter)
+		return 2 if not
+	
+	reset total tally value to 0
 
+	repeating until end of data string
+		iterate through string until find indicated party inside pollData string
+			add party result to total tally
+	
+	return 0 for success
+	*/
+
+	//change seatTally
+	//return 0 for success
 
 	//MAKE SURE TO RETURN TALLY SEATS TO THE CORRECT CAPITALIZATION OF PARTYYY!!!
 	//in other words, DO NOT CAPITALIZE INPUT! only capitalize a copy of the input!
