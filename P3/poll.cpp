@@ -6,7 +6,7 @@
 	
 	Project 3 for CS31 with Professor Smallberg
 	
-	Last Edit: 10/23/2018
+	Last Edit: 10/24/2018
 	
  	Purpose: Source code contains two functions definitions; expecting poll
  	data string and 1 party letter; "hasProperSyntax" checks for proper syntax
@@ -50,35 +50,6 @@ int main()
 //definition for "bool hasProperSyntax(string <name>)"
 bool hasProperSyntax(string pollData)
 {
-	/*in order for a poll data string to be proper, must:
-		-have no spaces
-		-be composed of proper state forecasts
-			-cannot be empty
-			-be composed of proper state code
-				-capitalize all letters in string
-				-must be two letters (if first --> letter, check second --> letter, run code)
-					-use provided code to test for valid uppercase state codes
-			-be composed of proper party results (one or two digits followed by party code)
-				-potential wrong party results:
-					-"R"
-					-"01"
-					-"32IR" -same as-> "32I" "R"
-				-look at first character
-					-if digit --> check second character
-						-if digit --> check third character
-							-if letter --> valid
-							-else --> invalid
-						-if letter --> valid
-						-else --> invalid
-					-if letter --> invalid
-					-if comma --> end of valid state forecast; increment cursor; repeat checking process
-					-else --> invalid
-				-repeat from "look at first character" until hitting a comma for the first character
-		-state forecasts must be separated by commas (i.e. no two state codes in one state forecast)
-		-CAN HAVE ZERO FORECASTS
-		-cannot have comma before or after poll data, as STATE FORECASTS CANNOT BE EMPTY
-	*/
-
 	//check for extreme short pollData strings (0 is always VALID, 1 is always INVALID)
 	if (pollData.size() == 0)
 		return true;
@@ -86,26 +57,13 @@ bool hasProperSyntax(string pollData)
 		return false;
 
 	//capitalize all letters of string to make letter detection easier (not case-sensitive)
-	for (int i = 0; i != pollData.size(); i++)
+	for (int i = 0; i < pollData.size(); i++)
 	{
 		pollData[i] = toupper(pollData[i]);
 	}
 
-	//          111111111122222
-	//0123456789012345678901234
-	//CT5D,NY9R17D1I,VT,ne3r00D
-
 	//set cursor to start of the (supposed) first state forecast
 	unsigned int cursor = 0;
-
-
-
-
-	//**ENSURE THAT LOOP CAN DEAL WITH TWO STATE CODES IN ONE STATE FORECAST
-
-
-
-
 
 	//enter loop, iterating and checking all state forecasts separated by commas
 	while (true)
@@ -183,17 +141,8 @@ bool hasProperSyntax(string pollData)
 		//move cursor past ended state forcaststate code to the start of where party results should be
 	}
 	
+	//if no errors found previously, must be valid
 	return true;
-
-	/*
-	repeatedly until end of string size:
-		find start of a state forecast
-			check proper state code
-			check proper party results following state code
-			if either not proper
-				return false
-	return true;
-	*/
 }
 
 //definition for "int tallySeats(string <name>, char <name>, int& <name>)"
@@ -217,6 +166,63 @@ int tallySeats(string pollData, char party, int &seatTally)
 		-increment counter variable, and continue iterating through (repeat)
 	*/
 
+	//check to make sure both data inputs are valid
+	if (!hasProperSyntax(pollData))
+		return 1;
+	if (!isalpha(party))
+		return 2;
+
+	//reset seatTally to 0 so we can ensure
+	seatTally = 0;
+
+	//capitalize both inputs to make letter detection easier (not case-sensitive)
+	char capitalizedparty = toupper(party);
+
+	for (int i = 0; i != pollData.size(); i++)
+	{
+		pollData[i] = toupper(pollData[i]);
+	}
+
+	//iterate through string until inputted party found inside pollData string, then add seat prediction value (its preceding value) to seatTally
+
+	//iterate through state forecasts
+	for (unsigned int i = 0; i < pollData.size(); i++)
+	{
+		//skip over state code
+		i += 2;
+
+		//check for out of bounds
+		if (i >= pollData.size())
+			break;
+
+		//iterate through characters within a state forecast
+		while (true)
+		{
+			//if at end of state forecast, move to next one
+			if (pollData[i] == ',')
+			{
+				i++;
+				break;
+			}
+
+			//if party match is found, add digits preceding it to tally
+			if (pollData[i] == capitalizedparty)
+			{
+				seatTally += (pollData[i-1]-'0');
+
+				if (isdigit(pollData[i-2]))
+					seatTally += (10*(pollData[i-1]-'0'));
+			}
+
+			i++;
+
+			//check if out of bounds (i.e. in the case of "CA3R") to avoid segmentation fault
+			if (i >= pollData.size())
+				break;
+		}
+	}
+
+	return 0;
 	/*
 	check if pollData string is proper
 		return 1 if not
