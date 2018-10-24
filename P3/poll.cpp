@@ -63,34 +63,6 @@ int main()
 //definition for "bool hasProperSyntax(string <name>)"
 bool hasProperSyntax(string pollData)
 {
-	/*in order for a poll data string to be proper, must:
-		-have no spaces
-		-be composed of proper state forecasts
-			-cannot be empty
-			-be composed of proper state code
-				-capitalize all letters in string
-				-must be two letters (if first --> letter, check second --> letter, run code)
-					-use provided code to test for valid uppercase state codes
-			-be composed of proper party results (one or two digits followed by party code)
-				-potential wrong party results:
-					-"R"
-					-"01"
-					-"32IR" -same as-> "32I" "R"
-				-look at first character
-					-if digit --> check second character
-						-if digit --> check third character
-							-if letter --> valid
-							-else --> invalid
-						-if letter --> valid
-						-else --> invalid
-					-if letter --> invalid
-					-if comma --> end of valid state forecast; increment cursor; repeat checking process
-					-else --> invalid
-				-repeat from "look at first character" until hitting a comma for the first character
-		-state forecasts must be separated by commas (i.e. no two state codes in one state forecast)
-		-CAN HAVE ZERO FORECASTS
-		-cannot have comma before or after poll data, as STATE FORECASTS CANNOT BE EMPTY
-	*/
 
 	//check for extreme short pollData strings (0 is always VALID, 1 is always INVALID)
 	if (pollData.size() == 0)
@@ -107,21 +79,8 @@ bool hasProperSyntax(string pollData)
 		pollData[i] = toupper(pollData[i]);
 	}
 
-	//          111111111122222
-	//0123456789012345678901234
-	//CT5D,NY9R17D1I,VT,ne3r00D
-
 	//set cursor to start of the (supposed) first state forecast
 	unsigned int cursor = 0;
-
-
-
-
-	//**ENSURE THAT LOOP CAN DEAL WITH TWO STATE CODES IN ONE STATE FORECAST
-
-
-
-
 
 	//enter loop, iterating and checking all state forecasts separated by commas
 	while (true)
@@ -226,116 +185,9 @@ bool hasProperSyntax(string pollData)
 		//move cursor past ended state forcaststate code to the start of where party results should be
 	}
 
+	//if no errors found, pollData string must be valid
 	return true;
-
-	/*
-	repeatedly until end of string size:
-		find start of a state forecast
-			check proper state code
-			check proper party results following state code
-			if either not proper
-				return false
-	return true;
-	*/
 }
-
-// //definition for "bool hasProperSyntax(string <name>)"
-// bool hasProperSyntax(string pollData)
-// {
-// 	//check for extreme short pollData strings (0 is always VALID, 1 is always INVALID)
-// 	if (pollData.size() == 0)
-// 		return true;
-// 	else if (pollData.size() == 1)
-// 		return false;
-
-// 	//capitalize all letters of string to make letter detection easier (not case-sensitive)
-// 	for (int i = 0; i < pollData.size(); i++)
-// 	{
-// 		pollData[i] = toupper(pollData[i]);
-// 	}
-
-// 	//set cursor to start of the (supposed) first state forecast
-// 	unsigned int cursor = 0;
-
-// 	//enter loop, iterating and checking all state forecasts separated by commas
-// 	while (true)
-// 	{
-// 		//if first two characters are letters, check if they encode for a valid state code
-// 		string candidateStateCode = "";
-// 		if (isalpha(pollData[cursor]) && isalpha(pollData[cursor+1])) //CHECK to see if this good with a "<letter><party symbol without numbers>"
-// 		{
-// 			candidateStateCode += pollData[cursor] + pollData[cursor+1];
-// 			if (!isValidUppercaseStateCode(candidateStateCode))
-// 			{
-// 				return false;
-// 			}
-// 		}
-// 		else
-// 			return false;
-
-// 		//move cursor past state code to the start of where party results should be
-// 		cursor += 2;
-
-// 		//check to make sure cursor is not out of bounds for string
-// 		if (cursor >= pollData.size())
-// 			break;
-
-// 		//enter loop to check all party results (until end of state forecast is found, as indicated by a comma)
-// 		while (true)
-// 		{
-// 			//check first character (only possible valid in 1st position: digit) (comma already accounted for in while condition)
-// 			if (isdigit(pollData[cursor]))
-// 			{
-// 				//check second character (only two valid in 2nd position: digit or letter)
-
-// 				//if end of string, improper termination of party result (INVALID)
-// 				if (cursor+1 >= pollData.size())
-// 					return false;
-
-// 				if (isdigit(pollData[cursor+1]))
-// 				{
-// 					//check third character (only one valid in 3rd position: letter)
-
-// 					//if end of string, improper termination of party result (INVALID)
-// 					if (cursor+2 >= pollData.size())
-// 						return false;
-
-// 					if (isalpha(pollData[cursor+2]))
-// 						cursor += 3;
-// 					else
-// 						return false;
-// 				}
-// 				else if (isalpha(pollData[cursor+1]))
-// 					cursor +=2;
-// 				else
-// 					return false;
-// 			}
-// 			else if (pollData[cursor] == ',')
-// 			{
-// 				//increment cursor
-// 				cursor++;
-
-// 				//check to make sure cursor is not at end of string (if so, INVALID, as at least two characters must follow comma for a valid pollData string)
-// 				if (cursor+1 >= pollData.size())
-// 					return false;
-
-// 				//break out of loop, as end of state forecast has been found
-// 				break;
-// 			}
-// 			else
-// 				return false;
-
-// 			//check to make sure cursor is not out of bounds for string
-// 			if (cursor >= pollData.size())
-// 				break;
-// 		}
-
-// 		//move cursor past ended state forcaststate code to the start of where party results should be
-// 	}
-
-// 	//if no errors found previously, must be valid
-// 	return true;
-// }
 
 //definition for "int tallySeats(string <name>, char <name>, int& <name>)"
 int tallySeats(string pollData, char party, int &seatTally)
