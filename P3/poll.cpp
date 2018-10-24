@@ -29,7 +29,22 @@ bool isValidUppercaseStateCode(string stateCode);
 
 int main()
 {
-	//test cases for the implementation of both functions
+	while (1 == 1)
+	{
+		string testcase = "";
+		cout << "Please input your test case for the Poll Data String (press enter to stop testing): ";
+		getline(cin, testcase);
+
+		if (testcase == "")
+		{
+			return 0;
+		}
+
+		if (hasProperSyntax(testcase))
+			cout << testcase << " is VALID" << endl;
+		else
+			cout << testcase << " is INVALID" << endl;
+	}
 }
 
 //definition for "bool hasProperSyntax(string <name>)"
