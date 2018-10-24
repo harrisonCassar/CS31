@@ -1,0 +1,64 @@
+Different methods of testing the program with different test cases:
+
+//looping (risk of not being able to reproduce all test cases if you make a change to the code and want to test that you didn't break anything; i.e. have to input test cases each time)
+	int main()
+	{
+	    for (;;)
+	    {
+	        cout << "Enter poll data string: ";
+	        string pds;
+		getline(cin, pds);
+		if (pds == "quit")
+		    break;
+		cout << "hasProperSyntax returns ";
+		if (hasProperSyntax(pds))
+		    cout << "true";
+		else
+		    cout << "false";
+		cout << endl;
+	    }
+	}
+
+//hard-coding various tests
+	int main()
+	{
+	    if (hasProperSyntax("CT5D,NY9R17D1I,VT,ne3r00D"))
+		cout << "Passed test 1: hasProperSyntax(\"CT5D,NY9R17D1I,VT,ne3r00D")" << endl;
+	    if (!hasProperSyntax("ZT5D,NY9R17D1I,VT,ne3r00D"))
+		cout << "Passed test 2: !hasProperSyntax(\"ZT5D,NY9R17D1I,VT,ne3r00D")" << endl;
+	    int seats;
+	    seats = -999;    // so we can detect whether tallySeats sets seats
+	    if (tallySeats("CT5D,NY9R17D1I,VT,ne3r00D", 'd', seats) == 0  &&  seats == 22)
+		cout << "Passed test 3: tallySeats(\"CT5D,NY9R17D1I,VT,ne3r00D", 'd', seats)" << endl;
+	    seats = -999;    // so we can detect whether tallySeats sets seats
+	    if (tallySeats("CT5D,NY9R17D1I,VT,ne3r00D", '%', seats) == 2  &&  seats == -999)
+		cout << "Passed test 4: tallySeats(\"CT5D,NY9R17D1I,VT,ne3r00D\", '%', seats)" << endl;
+	    …
+
+//using assert in the <cassert> library
+	#include <iostream>
+	#include <cassert>
+	using namespace std;
+
+	bool hasProperSyntax(string pollData)
+	{
+	    … Your code goes here …
+	}
+
+	int tallySeats(string pollData, char party, int& seatTally)
+	{
+	    … Your code goes here …
+	}
+
+	int main()
+	{
+	    assert(hasProperSyntax("CT5D,NY9R17D1I,VT,ne3r00D"));
+	    assert(!hasProperSyntax("ZT5D,NY9R17D1I,VT,ne3r00D"));
+	    int seats;
+	    seats = -999;    // so we can detect whether tallySeats sets seats
+	    assert(tallySeats("CT5D,NY9R17D1I,VT,ne3r00D", 'd', seats) == 0  &&  seats == 22);
+	    seats = -999;    // so we can detect whether tallySeats sets seats
+	    assert(tallySeats("CT5D,NY9R17D1I,VT,ne3r00D", '%', seats) == 2  &&  seats == -999);
+	    …
+	    cout << "All tests succeeded" << endl; //outputted to ensure that you can distinguish the situation of all tests succeeding from the case where one function you're testing silently crashes the program
+	}
