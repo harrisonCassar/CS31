@@ -243,8 +243,6 @@ int tallySeats(string pollData, char party, int &seatTally)
 
 	//MAKE SURE TO RETURN TALLY SEATS TO THE CORRECT CAPITALIZATION OF PARTYYY!!!
 	//in other words, DO NOT CAPITALIZE INPUT! only capitalize a copy of the input!
-
-	return 0;
 }
 
 bool isValidUppercaseStateCode(string stateCode)
