@@ -81,7 +81,7 @@ bool hasProperSyntax(string pollData)
 	//CT5D,NY9R17D1I,VT,ne3r00D
 
 	//set cursor to start of the (supposed) first state forecast
-	int cursor = 0;
+	unsigned int cursor = 0;
 
 
 
@@ -145,7 +145,7 @@ bool hasProperSyntax(string pollData)
 				else
 					return false;
 			}
-			else if (pollData[cursor] == ",")
+			else if (pollData[cursor] == ',')
 			{
 				//increment cursor
 				cursor++;
@@ -222,6 +222,8 @@ int tallySeats(string pollData, char party, int &seatTally)
 
 	//MAKE SURE TO RETURN TALLY SEATS TO THE CORRECT CAPITALIZATION OF PARTYYY!!!
 	//in other words, DO NOT CAPITALIZE INPUT! only capitalize a copy of the input!
+
+	return 0;
 }
 
 bool isValidUppercaseStateCode(string stateCode)
