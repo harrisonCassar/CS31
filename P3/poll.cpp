@@ -20,6 +20,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+using namespace std;
 
 //function prototypes
 bool hasProperSyntax(string pollData);
