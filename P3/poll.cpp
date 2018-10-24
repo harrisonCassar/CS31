@@ -255,7 +255,7 @@ int tallySeats(string pollData, char party, int &seatTally)
 				seatTally += (pollData[i - 1] - '0');
 
 				if (isdigit(pollData[i - 2]))
-					seatTally += (10 * (pollData[i - 1] - '0'));
+					seatTally += (10 * (pollData[i - 2] - '0'));
 			}
 
 			i++;
