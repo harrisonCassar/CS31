@@ -3,16 +3,16 @@
 	ID: 505114980
 	Discussion 1F
 	TA: Tao Zhou
-	
+
 	Project 3 for CS31 with Professor Smallberg
-	
+
 	Last Edit: 10/24/2018
-	
- 	Purpose: Source code contains two functions definitions; expecting poll
- 	data string and 1 party letter; "hasProperSyntax" checks for proper syntax
- 	of the two inputs, while "tallySeats" alters an inputted int variable to
- 	indicate the number of seats predicted to be won by the inputted party
- 	based on the inputted poll data string.
+
+	Purpose: Source code contains two functions definitions; expecting poll
+	data string and 1 party letter; "hasProperSyntax" checks for proper syntax
+	of the two inputs, while "tallySeats" alters an inputted int variable to
+	indicate the number of seats predicted to be won by the inputted party
+	based on the inputted poll data string.
 
 ****************************************************************************/
 
@@ -31,6 +31,8 @@ int main()
 {
 	while (1 == 1)
 	{
+		char inputtedparty;
+		int seatTally = 1000;
 		string testcase = "";
 		cout << "Please input your test case for the Poll Data String (press enter to stop testing): ";
 		getline(cin, testcase);
@@ -41,7 +43,18 @@ int main()
 		}
 
 		if (hasProperSyntax(testcase))
+		{
 			cout << testcase << " is VALID" << endl;
+
+			cout << "Please input your party: ";
+			cin >> inputtedparty;
+			
+
+			cout << "Return value of tallySeats is: " << tallySeats(testcase, inputtedparty, seatTally);
+			cout << ", and the value of seatTally is now: " << seatTally << endl;
+
+			cin.ignore(10000, '\n');
+		}
 		else
 			cout << testcase << " is INVALID" << endl;
 	}
@@ -50,36 +63,90 @@ int main()
 //definition for "bool hasProperSyntax(string <name>)"
 bool hasProperSyntax(string pollData)
 {
+	/*in order for a poll data string to be proper, must:
+		-have no spaces
+		-be composed of proper state forecasts
+			-cannot be empty
+			-be composed of proper state code
+				-capitalize all letters in string
+				-must be two letters (if first --> letter, check second --> letter, run code)
+					-use provided code to test for valid uppercase state codes
+			-be composed of proper party results (one or two digits followed by party code)
+				-potential wrong party results:
+					-"R"
+					-"01"
+					-"32IR" -same as-> "32I" "R"
+				-look at first character
+					-if digit --> check second character
+						-if digit --> check third character
+							-if letter --> valid
+							-else --> invalid
+						-if letter --> valid
+						-else --> invalid
+					-if letter --> invalid
+					-if comma --> end of valid state forecast; increment cursor; repeat checking process
+					-else --> invalid
+				-repeat from "look at first character" until hitting a comma for the first character
+		-state forecasts must be separated by commas (i.e. no two state codes in one state forecast)
+		-CAN HAVE ZERO FORECASTS
+		-cannot have comma before or after poll data, as STATE FORECASTS CANNOT BE EMPTY
+	*/
+
 	//check for extreme short pollData strings (0 is always VALID, 1 is always INVALID)
 	if (pollData.size() == 0)
 		return true;
 	else if (pollData.size() == 1)
+	{
+		cerr << "error 8" << endl;
 		return false;
+	}
 
 	//capitalize all letters of string to make letter detection easier (not case-sensitive)
-	for (int i = 0; i < pollData.size(); i++)
+	for (int i = 0; i != pollData.size(); i++)
 	{
 		pollData[i] = toupper(pollData[i]);
 	}
 
+	//          111111111122222
+	//0123456789012345678901234
+	//CT5D,NY9R17D1I,VT,ne3r00D
+
 	//set cursor to start of the (supposed) first state forecast
 	unsigned int cursor = 0;
+
+
+
+
+	//**ENSURE THAT LOOP CAN DEAL WITH TWO STATE CODES IN ONE STATE FORECAST
+
+
+
+
 
 	//enter loop, iterating and checking all state forecasts separated by commas
 	while (true)
 	{
+		//check to make sure cursor is not out of bounds for string
+		if (cursor >= pollData.size())
+			break;
+
 		//if first two characters are letters, check if they encode for a valid state code
 		string candidateStateCode = "";
-		if (isalpha(pollData[cursor]) && isalpha(pollData[cursor+1])) //CHECK to see if this good with a "<letter><party symbol without numbers>"
+		if (isalpha(pollData[cursor]) && isalpha(pollData[cursor + 1])) //CHECK to see if this good with a "<letter><party symbol without numbers>"
 		{
-			candidateStateCode += pollData[cursor] + pollData[cursor+1];
+			candidateStateCode += pollData[cursor];
+			candidateStateCode += pollData[cursor + 1];
 			if (!isValidUppercaseStateCode(candidateStateCode))
 			{
+				cerr << "STATE CODE NOT VALID" << endl;
 				return false;
 			}
 		}
 		else
+		{
+			cerr << "counter is: " << cursor << "; error 2" << endl;
 			return false;
+		}
 
 		//move cursor past state code to the start of where party results should be
 		cursor += 2;
@@ -95,28 +162,40 @@ bool hasProperSyntax(string pollData)
 			if (isdigit(pollData[cursor]))
 			{
 				//check second character (only two valid in 2nd position: digit or letter)
-				
-				//if end of string, improper termination of party result (INVALID)
-				if (cursor+1 >= pollData.size())
-					return false;
 
-				if (isdigit(pollData[cursor+1]))
+				//if end of string, improper termination of party result (INVALID)
+				if (cursor + 1 >= pollData.size())
+				{
+					cerr << "counter is: " << cursor << "error 1" << endl;
+					return false;
+				}
+
+				if (isdigit(pollData[cursor + 1]))
 				{
 					//check third character (only one valid in 3rd position: letter)
-					
-					//if end of string, improper termination of party result (INVALID)
-					if (cursor+2 >= pollData.size())
-						return false;
 
-					if (isalpha(pollData[cursor+2]))
+					//if end of string, improper termination of party result (INVALID)
+					if (cursor + 2 >= pollData.size())
+					{
+						cerr << "counter is: " << cursor << "error 3" << endl;
+						return false;
+					}
+
+					if (isalpha(pollData[cursor + 2]))
 						cursor += 3;
 					else
+					{
+						cerr << "counter is: " << cursor << "error 4" << endl;
 						return false;
+					}
 				}
-				else if (isalpha(pollData[cursor+1]))
-					cursor +=2;
+				else if (isalpha(pollData[cursor + 1]))
+					cursor += 2;
 				else
+				{
+					cerr << "counter is: " << cursor << "error 5" << endl;
 					return false;
+				}
 			}
 			else if (pollData[cursor] == ',')
 			{
@@ -124,14 +203,20 @@ bool hasProperSyntax(string pollData)
 				cursor++;
 
 				//check to make sure cursor is not at end of string (if so, INVALID, as at least two characters must follow comma for a valid pollData string)
-				if (cursor+1 >= pollData.size())
+				if (cursor + 1 >= pollData.size())
+				{
+					cerr << "counter is: " << cursor << "error 6" << endl;
 					return false;
+				}
 
 				//break out of loop, as end of state forecast has been found
 				break;
 			}
 			else
+			{
+				cerr << "counter is: " << cursor << "error 7" << endl;
 				return false;
+			}
 
 			//check to make sure cursor is not out of bounds for string
 			if (cursor >= pollData.size())
@@ -140,10 +225,117 @@ bool hasProperSyntax(string pollData)
 
 		//move cursor past ended state forcaststate code to the start of where party results should be
 	}
-	
-	//if no errors found previously, must be valid
+
 	return true;
+
+	/*
+	repeatedly until end of string size:
+		find start of a state forecast
+			check proper state code
+			check proper party results following state code
+			if either not proper
+				return false
+	return true;
+	*/
 }
+
+// //definition for "bool hasProperSyntax(string <name>)"
+// bool hasProperSyntax(string pollData)
+// {
+// 	//check for extreme short pollData strings (0 is always VALID, 1 is always INVALID)
+// 	if (pollData.size() == 0)
+// 		return true;
+// 	else if (pollData.size() == 1)
+// 		return false;
+
+// 	//capitalize all letters of string to make letter detection easier (not case-sensitive)
+// 	for (int i = 0; i < pollData.size(); i++)
+// 	{
+// 		pollData[i] = toupper(pollData[i]);
+// 	}
+
+// 	//set cursor to start of the (supposed) first state forecast
+// 	unsigned int cursor = 0;
+
+// 	//enter loop, iterating and checking all state forecasts separated by commas
+// 	while (true)
+// 	{
+// 		//if first two characters are letters, check if they encode for a valid state code
+// 		string candidateStateCode = "";
+// 		if (isalpha(pollData[cursor]) && isalpha(pollData[cursor+1])) //CHECK to see if this good with a "<letter><party symbol without numbers>"
+// 		{
+// 			candidateStateCode += pollData[cursor] + pollData[cursor+1];
+// 			if (!isValidUppercaseStateCode(candidateStateCode))
+// 			{
+// 				return false;
+// 			}
+// 		}
+// 		else
+// 			return false;
+
+// 		//move cursor past state code to the start of where party results should be
+// 		cursor += 2;
+
+// 		//check to make sure cursor is not out of bounds for string
+// 		if (cursor >= pollData.size())
+// 			break;
+
+// 		//enter loop to check all party results (until end of state forecast is found, as indicated by a comma)
+// 		while (true)
+// 		{
+// 			//check first character (only possible valid in 1st position: digit) (comma already accounted for in while condition)
+// 			if (isdigit(pollData[cursor]))
+// 			{
+// 				//check second character (only two valid in 2nd position: digit or letter)
+
+// 				//if end of string, improper termination of party result (INVALID)
+// 				if (cursor+1 >= pollData.size())
+// 					return false;
+
+// 				if (isdigit(pollData[cursor+1]))
+// 				{
+// 					//check third character (only one valid in 3rd position: letter)
+
+// 					//if end of string, improper termination of party result (INVALID)
+// 					if (cursor+2 >= pollData.size())
+// 						return false;
+
+// 					if (isalpha(pollData[cursor+2]))
+// 						cursor += 3;
+// 					else
+// 						return false;
+// 				}
+// 				else if (isalpha(pollData[cursor+1]))
+// 					cursor +=2;
+// 				else
+// 					return false;
+// 			}
+// 			else if (pollData[cursor] == ',')
+// 			{
+// 				//increment cursor
+// 				cursor++;
+
+// 				//check to make sure cursor is not at end of string (if so, INVALID, as at least two characters must follow comma for a valid pollData string)
+// 				if (cursor+1 >= pollData.size())
+// 					return false;
+
+// 				//break out of loop, as end of state forecast has been found
+// 				break;
+// 			}
+// 			else
+// 				return false;
+
+// 			//check to make sure cursor is not out of bounds for string
+// 			if (cursor >= pollData.size())
+// 				break;
+// 		}
+
+// 		//move cursor past ended state forcaststate code to the start of where party results should be
+// 	}
+
+// 	//if no errors found previously, must be valid
+// 	return true;
+// }
 
 //definition for "int tallySeats(string <name>, char <name>, int& <name>)"
 int tallySeats(string pollData, char party, int &seatTally)
@@ -208,10 +400,10 @@ int tallySeats(string pollData, char party, int &seatTally)
 			//if party match is found, add digits preceding it to tally
 			if (pollData[i] == capitalizedparty)
 			{
-				seatTally += (pollData[i-1]-'0');
+				seatTally += (pollData[i - 1] - '0');
 
-				if (isdigit(pollData[i-2]))
-					seatTally += (10*(pollData[i-1]-'0'));
+				if (isdigit(pollData[i - 2]))
+					seatTally += (10 * (pollData[i - 1] - '0'));
 			}
 
 			i++;
@@ -228,13 +420,13 @@ int tallySeats(string pollData, char party, int &seatTally)
 		return 1 if not
 	check if party character is proper (a letter)
 		return 2 if not
-	
+
 	reset total tally value to 0
 
 	repeating until end of data string
 		iterate through string until find indicated party inside pollData string
 			add party result to total tally
-	
+
 	return 0 for success
 	*/
 
@@ -249,11 +441,11 @@ int tallySeats(string pollData, char party, int &seatTally)
 
 bool isValidUppercaseStateCode(string stateCode)
 {
-    const string codes =
-        "AL.AK.AZ.AR.CA.CO.CT.DE.FL.GA.HI.ID.IL.IN.IA.KS.KY."
-        "LA.ME.MD.MA.MI.MN.MS.MO.MT.NE.NV.NH.NJ.NM.NY.NC.ND."
-        "OH.OK.OR.PA.RI.SC.SD.TN.TX.UT.VT.VA.WA.WV.WI.WY";
-    return (stateCode.size() == 2  &&
-            stateCode.find('.') == string::npos  &&  // no '.' in stateCode
-            codes.find(stateCode) != string::npos);  // match found
+	const string codes =
+		"AL.AK.AZ.AR.CA.CO.CT.DE.FL.GA.HI.ID.IL.IN.IA.KS.KY."
+		"LA.ME.MD.MA.MI.MN.MS.MO.MT.NE.NV.NH.NJ.NM.NY.NC.ND."
+		"OH.OK.OR.PA.RI.SC.SD.TN.TX.UT.VT.VA.WA.WV.WI.WY";
+	return (stateCode.size() == 2 &&
+		stateCode.find('.') == string::npos  &&  // no '.' in stateCode
+		codes.find(stateCode) != string::npos);  // match found
 }
