@@ -35,29 +35,33 @@ int main()
 		char inputtedparty;
 		int seatTally = 1000;
 		string testcase = "";
-		cout << "Please input your test case for the Poll Data String (press enter to stop testing): ";
+		cout << "Poll Data String (press enter to stop testing): ";
 		getline(cin, testcase);
 
 		if (testcase == "")
 		{
 			return 0;
 		}
-
-		if (hasProperSyntax(testcase))
-		{
-			cout << testcase << " is VALID" << endl;
-
-			cout << "Please input your party: ";
-			cin >> inputtedparty;
+		
+		cout << "Party: ";
+		cin >> inputtedparty;
 			
-
-			cout << "Return value of tallySeats is: " << tallySeats(testcase, inputtedparty, seatTally);
-			cout << ", and the value of seatTally is now: " << seatTally << endl;
-
-			cin.ignore(10000, '\n');
+		int returnvalue = tallySeats(testcase, inputtedparty, seatTally);
+		switch (returnvalue)
+		{
+			case 1:
+				cout << "INVALID POLLDATASTRING" << endl;
+				break;
+			case 2:
+				cout << "INVALID PARTY" << endl;
+				break;
+			case 0:
+				cout << "Success! seatTally = " << seatTally << endl;
+				break;
 		}
-		else
-			cout << testcase << " is INVALID" << endl;
+		cout << endl;
+
+		cin.ignore(10000, '\n');
 	}
 }
 
