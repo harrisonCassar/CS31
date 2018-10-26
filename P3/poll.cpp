@@ -32,36 +32,38 @@ int main()
 {
 	while (1 == 1)
 	{
-		char inputtedparty;
+		string inputtedparty;
 		int seatTally = 1000;
 		string testcase = "";
-		cout << "Poll Data String (press enter to stop testing): ";
+		cout << "Poll Data String (type \"stop\" to stop testing): ";
 		getline(cin, testcase);
 
-		if (testcase == "")
+		if (testcase == "stop")
 		{
 			return 0;
 		}
-		
+
 		cout << "Party: ";
-		cin >> inputtedparty;
-			
-		int returnvalue = tallySeats(testcase, inputtedparty, seatTally);
+		getline(cin, inputtedparty);
+
+		//inputtedparty = '\n';
+
+		int returnvalue = tallySeats(testcase, inputtedparty[0], seatTally);
 		switch (returnvalue)
 		{
-			case 1:
-				cout << "INVALID POLLDATASTRING" << endl;
-				break;
-			case 2:
-				cout << "INVALID PARTY" << endl;
-				break;
-			case 0:
-				cout << "Success! seatTally = " << seatTally << endl;
-				break;
+		case 1:
+			cout << "INVALID POLLDATASTRING" << endl;
+			break;
+		case 2:
+			cout << "INVALID PARTY" << endl;
+			break;
+		case 0:
+			cout << "Success! seatTally = " << seatTally << endl;
+			break;
 		}
 		cout << endl;
 
-		cin.ignore(10000, '\n');
+		//cin.ignore(10000, '\n');
 	}
 }
 
@@ -201,6 +203,8 @@ int tallySeats(string pollData, char party, int &seatTally)
 		return 1;
 	if (!isalpha(party))
 		return 2;
+
+	cerr << party;
 
 	//reset seatTally to 0 so we can ensure
 	seatTally = 0;
