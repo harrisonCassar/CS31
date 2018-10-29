@@ -105,6 +105,8 @@ c. List of test data for inputs to thoroughly test program:
 			-CA30d56r,CT1D, 		==> valid first state forecast with valid second state forecast but ending in a comma
 			-CA30d56r,CT1D,X 		==> valid first state forecast with valid second state forecast but invalid third state forecast
 			-CA30d56r,CT1D,! 		==> valid first state forecast with valid second state forecast but invalid third state forecast
+			-" CA30d56r,CT1D"		==> valid two state forecasts but being preceded with a space
+			-"CA30d56r,CT1D "		==> valid two state forecasts but being followed with a space
 
 	-tests for party character:
 		-'\n' 					==> special charactars may be treated differently by "isalpha" function
