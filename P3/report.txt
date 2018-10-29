@@ -74,13 +74,13 @@ c. List of test data for inputs to thoroughly test program:
 	-tests for pollData string:
 		-special cases:
 			-"" (empty)			==> empty string is specificed as valid in the specification
-			-" " (space)		==> one characater should always return invalid
-			-C 					==> one characater should always return invalid (regardless if it is a letter or not)
+			-" " (space)			==> one characater should always return invalid
+			-C 				==> one characater should always return invalid (regardless if it is a letter or not)
 			-,C 				==> string cannot start with comma (as stated in specification)
 			-CA,				==> string cannot end with comma (as stated in specification)
 			
 		-bulk of the cases (checking for differences in evaluating a string with invalid characters in different relative locations)
-			-CX					==> invalid state code only
+			-CX				==> invalid state code only
 			-CX!				==> invalid state code with more invalid
 			-CX,				==> invalid state code with more invalid
 			-CA 				==> valid state code only
@@ -100,11 +100,11 @@ c. List of test data for inputs to thoroughly test program:
 			-CA0d 				==> valid state code with valid following party prediction
 			-CA0dr 				==> valid state code with valid following party prediction but invalid following party prediction (party result must have 1-2 digits preceding party letter)
 			-CA0dr,CT 			==> valid state code with valid following party prediction but invalid following party prediction followed by valid rest of string
-			-CA30d56r,CT1 		==> valid first state forecast with invalid second state forecast
-			-CA30d56r,CT1D 		==> valid first state forecast with valid second state forecast
-			-CA30d56r,CT1D, 	==> valid first state forecast with valid second state forecast but ending in a comma
-			-CA30d56r,CT1D,X 	==> valid first state forecast with valid second state forecast but invalid third state forecast
-			-CA30d56r,CT1D,! 	==> valid first state forecast with valid second state forecast but invalid third state forecast
+			-CA30d56r,CT1 			==> valid first state forecast with invalid second state forecast
+			-CA30d56r,CT1D 			==> valid first state forecast with valid second state forecast
+			-CA30d56r,CT1D, 		==> valid first state forecast with valid second state forecast but ending in a comma
+			-CA30d56r,CT1D,X 		==> valid first state forecast with valid second state forecast but invalid third state forecast
+			-CA30d56r,CT1D,! 		==> valid first state forecast with valid second state forecast but invalid third state forecast
 
 	-tests for party character:
 		-'\n' 					==> special charactars may be treated differently by "isalpha" function
