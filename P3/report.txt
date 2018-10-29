@@ -1,0 +1,121 @@
+Harrison Cassar
+ID: 505114980
+Discussion 1F
+TA: Tao Zhou
+
+Report for CS31 Project 3: House Party
+
+a. Brief description of notable obstacles I overcame:
+	-ensuring that no segmentation faults were occuring (that is, accessing beyond the bounds of a string when looping through a string of unknown length and format).
+		-This was fixed by always performing checks of the "counter" variable in comparison to the total size of the inputted string right after incrementing or decrementing the "counter" variable.
+	-determining how to properly test my code and represent the actual results of those tests (that is, coding an "int main" that does not have any effect on the results of the test).
+		-This was completed by having the functions output what they believed they recieved as input of each function test as well as the return values of each function test, coupled with numerous outputs to "cerr" placed within the two functions themselves
+	-debugging the two coded functions for accuracy errors in terms of returning false syntax for an actually correct pollData string.
+		-This was fixed by including outputs to cerr, and determining exactly where in the program the bug was occuring)
+
+b. Description of the design of the program (psuedocode included):
+	-for "hasProperSyntax":
+		-check for extremely short pollData strings
+		-capitalize all letters of inputted string to make letter matching/detection easier (not case-sensitive)
+		-declare a "cursor" that determines what character will be used as a base character for reading relative positions
+		-enter an infinite loop until the end of the string size is reached (incrementing through and checking all of the state forecasts)
+			-check if first two characters are letters
+				-check if they form a valid state code
+			-move cursor two forward past the state code
+				-check that cursor is not out of bounds of string
+			-enter another infinite loop until anything but a digit is found
+				-look at first character
+					-if digit --> check second character
+						-if digit --> check third character
+							-if letter --> valid
+							-else --> invalid
+						-if letter --> valid
+						-else --> invalid
+					-if letter --> invalid
+					-if comma --> end of valid state forecast; increment cursor; repeat checking process by breaking out of this infinite loop
+					-else --> invalid
+
+	-psuedocode for "hasProperSyntax":
+		repeatedly until end of string size:
+			find start of a state forecast
+				check for proper state code
+				check for proper party results following state code (until the end of a state forecast)
+				if either not proper
+					return false
+		return true;
+	
+	-for "tallySeats":
+		-check to make sure both data inputs are valid (call "hasProperSyntax" for pollData string and "isalpha" for party character)
+		-reset seatTally to 0, as it will be acting as our sum "counting variable"
+		-captialize both inputs to make letter detection easier (not case-sensitive)
+		-enter for loop that iterates through state forecasts
+			-increment 'i' cursor by 2 to skip over state code
+				-check that cursor is not out-of-bounds of string
+			-enter infinite loop until reaching end of state forecast (indicated by a comma)
+				-if party match is found
+					-add digit(s) preceding it to the total seatTally
+				-increment counting variable
+					-check that cursor is not out-of-bounds of string
+
+	-psuedocode for "tallySeats":
+		check if pollData string is proper
+			return 1 if not
+		check if party character is proper (a letter)
+			return 2 if not
+		
+		reset total tally value to 0
+
+		repeatedly until end of data string
+			iterate through string until find indicated party inside pollData string
+				add party result to total tally
+		
+		return 0 for success
+
+c. List of test data for inputs to thoroughly test program:
+	-tests for pollData string:
+		-special cases:
+			-"" (empty)			==> empty string is specificed as valid in the specification
+			-" " (space)		==> one characater should always return invalid
+			-C 					==> one characater should always return invalid (regardless if it is a letter or not)
+			-,C 				==> string cannot start with comma (as stated in specification)
+			-CA,				==> string cannot end with comma (as stated in specification)
+			
+		-bulk of the cases (checking for differences in evaluating a string with invalid characters in different relative locations)
+			-CX					==> invalid state code only
+			-CX!				==> invalid state code with more invalid
+			-CX,				==> invalid state code with more invalid
+			-CA 				==> valid state code only
+			-CA,C 				==> valid state code with invalid following
+			-CA,X 				==> valid state code with invalid following
+			-CA,! 				==> valid state code with invalid following
+			-CA,CX 				==> valid state code with invalid second state code 
+			-CA,C!				==> valid state code with invalid second state code 
+			-CA,CT 				==> valid state code with valid second state code
+			-CA3 				==> valid state code with invalid following party prediction
+			-CA3d 				==> valid state code with valid following party prediction
+			-CA3D 				==> valid state code with valid following party prediction (testing for lack of case-sensitiveness)
+			-CA30D 				==> valid state code with valid following party prediction
+			-CA30D! 			==> valid state code with valid following party prediction but invalid following
+			-CA100D 			==> valid state code with invalid following party prediction (cannot have 3 digits as indicated in specification)
+			-CA100D!			==> valid state code with invalid following party prediction and more invalid following
+			-CA0d 				==> valid state code with valid following party prediction
+			-CA0dr 				==> valid state code with valid following party prediction but invalid following party prediction (party result must have 1-2 digits preceding party letter)
+			-CA0dr,CT 			==> valid state code with valid following party prediction but invalid following party prediction followed by valid rest of string
+			-CA30d56r,CT1 		==> valid first state forecast with invalid second state forecast
+			-CA30d56r,CT1D 		==> valid first state forecast with valid second state forecast
+			-CA30d56r,CT1D, 	==> valid first state forecast with valid second state forecast but ending in a comma
+			-CA30d56r,CT1D,X 	==> valid first state forecast with valid second state forecast but invalid third state forecast
+			-CA30d56r,CT1D,! 	==> valid first state forecast with valid second state forecast but invalid third state forecast
+
+	-tests for party character:
+		-'\n' 					==> special charactars may be treated differently by "isalpha" function
+		-' '					==> special charactars may be treated differently by "isalpha" function
+		-'1'					==> digit character being properly evaluated by "isalpha" function
+		-'r' 					==> checking to make sure "isalpha" function is correctly recognizing a letter
+		-'R'					==> checking to make sure "isalpha" function is correctly recognizing a letter (regardless if capital or not)
+		-'f'					==> checking to make sure "isalpha" function is correctly recognizing a letter (regardless if capital or not)
+		-'t'					==> checking to make sure "isalpha" function is correctly recognizing a letter (regardless if capital or not)
+		-'P'					==> checking to make sure "isalpha" function is correctly recognizing a letter (regardless if capital or not)
+		-'!'					==> special charactars may be treated differently by "isalpha" function
+
+	

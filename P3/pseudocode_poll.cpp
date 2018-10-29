@@ -60,8 +60,8 @@ bool hasProperSyntax(string pollData)
 	/*
 	repeatedly until end of string size:
 		find start of a state forecast
-			check proper state code
-			check proper party results following state code
+			check for proper state code
+			check for proper party results following state code (until the end of a state forecast)
 			if either not proper
 				return false
 	return true;
