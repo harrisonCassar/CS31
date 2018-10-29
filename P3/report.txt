@@ -13,6 +13,7 @@ a. Brief description of notable obstacles I overcame:
 	-debugging the two coded functions for accuracy errors in terms of returning false syntax for an actually correct pollData string.
 		-This was fixed by including outputs to cerr, and determining exactly where in the program the bug was occuring)
 
+
 b. Description of the design of the program (psuedocode included):
 	-for "hasProperSyntax":
 		-check for extremely short pollData strings
@@ -62,14 +63,12 @@ b. Description of the design of the program (psuedocode included):
 			return 1 if not
 		check if party character is proper (a letter)
 			return 2 if not
-		
 		reset total tally value to 0
-
 		repeatedly until end of data string
 			iterate through string until find indicated party inside pollData string
 				add party result to total tally
-		
 		return 0 for success
+
 
 c. List of test data for inputs to thoroughly test program:
 	-tests for pollData string:
