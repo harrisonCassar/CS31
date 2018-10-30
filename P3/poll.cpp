@@ -65,6 +65,8 @@ int main()
 
 		//cin.ignore(10000, '\n');
 	}
+
+	return 0;
 }
 
 //definition for "bool hasProperSyntax(string <name>)"
