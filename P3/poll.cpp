@@ -6,7 +6,7 @@
 
 	Project 3 for CS31 with Professor Smallberg
 
-	Last Edit: 10/24/2018
+	Last Edit: 10/30/2018
 
 	Purpose: Source code contains two functions definitions; expecting poll
 	data string and 1 party letter; "hasProperSyntax" checks for proper syntax
@@ -75,7 +75,6 @@ bool hasProperSyntax(string pollData)
 		return true;
 	else if (pollData.size() == 1)
 	{
-		cerr << "error 8" << endl;
 		return false;
 	}
 
@@ -103,13 +102,11 @@ bool hasProperSyntax(string pollData)
 			candidateStateCode += pollData[cursor + 1];
 			if (!isValidUppercaseStateCode(candidateStateCode))
 			{
-				cerr << "STATE CODE NOT VALID" << endl;
 				return false;
 			}
 		}
 		else
 		{
-			cerr << "counter is: " << cursor << "; error 2" << endl;
 			return false;
 		}
 
@@ -131,7 +128,6 @@ bool hasProperSyntax(string pollData)
 				//if end of string, improper termination of party result (INVALID)
 				if (cursor + 1 >= pollData.size())
 				{
-					cerr << "counter is: " << cursor << "error 1" << endl;
 					return false;
 				}
 
@@ -142,7 +138,6 @@ bool hasProperSyntax(string pollData)
 					//if end of string, improper termination of party result (INVALID)
 					if (cursor + 2 >= pollData.size())
 					{
-						cerr << "counter is: " << cursor << "error 3" << endl;
 						return false;
 					}
 
@@ -150,7 +145,6 @@ bool hasProperSyntax(string pollData)
 						cursor += 3;
 					else
 					{
-						cerr << "counter is: " << cursor << "error 4" << endl;
 						return false;
 					}
 				}
@@ -158,7 +152,6 @@ bool hasProperSyntax(string pollData)
 					cursor += 2;
 				else
 				{
-					cerr << "counter is: " << cursor << "error 5" << endl;
 					return false;
 				}
 			}
@@ -170,7 +163,6 @@ bool hasProperSyntax(string pollData)
 				//check to make sure cursor is not at end of string (if so, INVALID, as at least two characters must follow comma for a valid pollData string)
 				if (cursor + 1 >= pollData.size())
 				{
-					cerr << "counter is: " << cursor << "error 6" << endl;
 					return false;
 				}
 
@@ -179,7 +171,6 @@ bool hasProperSyntax(string pollData)
 			}
 			else
 			{
-				cerr << "counter is: " << cursor << "error 7" << endl;
 				return false;
 			}
 
