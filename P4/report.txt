@@ -1,0 +1,78 @@
+Harrison Cassar
+ID: 505114980
+Discussion 1F
+TA: Tao Zhou
+
+Report for CS31 Project 4: Ask Your Boss for Arrays
+
+a. Brief description of notable obstacles I overcame:
+	-
+
+b. List of test data for inputs to thoroughly test program:
+	-for "appendToAll":
+		-returns error with negative indicated array size: n = -1
+
+	-for "lookup":
+		-returns error with negative indicated array size: n = -1
+		-returns -1 with array of empty string: {""}
+		-returns -1 with array of strings w/o target string: {"abc","rst"}, target = "xyz"
+		-returns correct position with array of strings w/ one string matching target: {"abc", "xyz"}, target = "xyz" 
+		-returns first position with array of strings w/ two strings matching target: {"xyz", "abc", "xyz"}, target = "xyz"
+		-returns -1 with array of strings that have a case-differing instance of target: {"xYz", "abc"}, target = "xyz"
+
+	-for "positionOfMax":
+		-returns error with negative indicated array size: n = -1
+		-returns 0 with array of empty string: {""}
+		-returns correct position with array of strings: {"abc", "xyz"}
+		-returns first position with array of strings w/ two strings identical greatest string: {"xyz", "abc", "xyz"}
+
+	-for "rotateLeft":
+		-returns error with negative indicated array size: n = -1
+		-returns error with position being negative: pos = -1;
+		-returns error with position being greater than indicated array size: pos = 3, n = 2
+		-returns correct original position with valid position being equal to the indicated array size: pos = 5, n = 5
+		-returns correct original position with valid position less than indicated array size: pos = 3, n = 5
+
+	-for "countRuns":
+		-returns error with negative indicated array size: n = -1
+		-treats two case-differing strings as different strings (breaking up consecutive runs): {"abc", "xyz", "xYz", "rst"}
+		-returning correct number of sequences with a regular array of completely different strings: {"abc", "xyz"}
+		-returning 0 if indicated array size is 0: n = 0
+		-returning correct number of sequences with an array containing identical strings but separated by other string values in between: {"abc", "xyz", "abc"}
+		-returning correct number of sequcnes with a regular array with two identical strings next to each other: {"abc", "abc", "xyz"}
+
+	-for "flip":
+		-returns error with negative indicated array size: n = -1
+		-returns n when given an array with 1 or more elements: n = 2
+		-returns 0 when given an array with 0 interesting elements: n = 0
+		-returns n when given an array with an empty string as one of its elements: {"abc", "", "xyz", "rst"}
+
+	-for "differ":
+		-returns error with negative indicated array size: n1 or n2 = -1
+		-returns n1 or n2 when given two arrays that are equal up to their indicated array sizes: {"abc"}, {"abc"}, n1 = 1, n2 = 1
+		-returns correct differing position when given two arrays that have case-differing strings: {"aBc"}, {"abc"}, n1 = 1, n2 = 1
+		-returns correct array size when given two arrays that are equal to each other up to one of them ending: {"abc"}, {"abc", "xyz"}, n1 = 1, n2 = 2
+		-returns correct differing position when given two arrays that have case-differing strings: {"aBc"}, {"abc"}, n1 = 1, n2 = 1
+		-returns correct differing position when given two arrays that have a differing position within the scope of their indicated array sizes: {"abc", "xyz"}, {"abc", "rst"}, n1 = 2, n2 = 2
+
+
+	-for "subsequence":
+		-returns error with negative indicated array size: n1 or n2 = -1
+		-returns -1 when given a1 that contains only the first part of a2: {"abc", "def", "xyz"}, {"abc", "def", "ghi"}
+		-returns -1 when given a1 that stops before a2 finishes: {"abc", "def"}, {"abc", "def", "ghi", n1 = 2, n2 = 3
+		-returns -1 when given a1 that does not contain even the first element of a2: {"def", "ghi"}, {"abc", "def"}, n1 = 2, n2 = 2
+		-returns 0 when given any a1 with an a2 of 0 elements: n2 = 0
+
+	-for "lookupAny":
+		-returns error with negative indicated array size: n1 or n2 = -1
+		-returns -1 when given a1 that has no elements identical to any of the elements in a2: {"abc"}, {"xyz"}
+		-returns -1 when given a1 that has elements that are case-differing from a2 (therefore not identical): {"aBc"}, {"abc"}
+		-returns the smallest position of an element in a1 that matches any of the elements in a2 when given multiple elements in a1 that match some element in a2: {"abc", "def", "rst"}, {"abc", "rst"}
+		-returns -1 when given any a1 with an a2 of 0 indicated size: n2 = 0
+
+	-for "divide":
+		-returns error with negative indicated array size: n = -1
+		-returns n when given an array that has elements that are all less than the divider: {"abc"}, divider = "zed", n = 1
+		-returns 0 when given an array that has elements that are all more than the divider: {"zed"}, divider = "abc", n = 1
+		-returns correct position when given an array that has an element that is equal to the divider: {"abc", "def", "xyz"}, divider = "def", n = 3
+		-returns 0 when given an indicated array size of 0: n = 0

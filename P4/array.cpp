@@ -321,6 +321,9 @@ int divide(string a[], int n, string divider)
 	if (isInvalidSize(n))
 		return -1;
 
+	if (n == 0)
+		return n;
+
 	bool switchPerformed;
 
 	do
