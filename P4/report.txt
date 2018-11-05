@@ -6,7 +6,13 @@ TA: Tao Zhou
 Report for CS31 Project 4: Ask Your Boss for Arrays
 
 a. Brief description of notable obstacles I overcame:
-	-
+	-Being able to visualize what the code I was writing was trying to accomplish (which essentially means trying to understand all of the specifics detailed in the specification) was one of the biggest obstacles I overcame. Multiple times I had to slow down and re-evaluate my code a couple times through, even re-writing a couple of the algorithms that my code was using to complete the specifications.
+
+	-Making sure that my code was performing correctly under different edge cases and unsual input was yet another obstacle I overcame, as each of the separate functions had their own subtle differences in terms of what was expected for our code's actions with certain inputs. Which also leads to the next obstacle:
+	
+	-Figuring out how to actually throughouly test my code. Simply using "assert" statements are not enough, as this only tests the return values of the functions that you put in its parameter. Therefore, reading the values inside of the arrays after the call of the functions I coded were also required (possibly even just outputting them for manual checking as well).
+	
+	-Just like last project, also making sure to never go outside the bounds of an array was very important to maintain as well. Multiple times I had to make sure that I addressed the possibilities for unsual inputs that may have caused my code to look beyond the array's boundaries (in this case, negative size values or loops that would go beyond the inputted/desired array size).
 
 b. List of test data for inputs to thoroughly test program:
 	-for "appendToAll":
