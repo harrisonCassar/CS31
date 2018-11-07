@@ -38,80 +38,6 @@ bool isInvalidPosition(int n, int position);
 //testing processes of coded functions
 int main()
 {
-	/*string people[5] = { "dianne", "fiona", "ed", "xavier", "greg" };
-	assert(appendToAll(people,-5,"!!!") == -1);
-	assert(appendToAll(people,0,"!!!") == 0);
-	assert(appendToAll(people,5,"!!!") == 5);
-
-	string people2[5] = { "dianne", "fiona", "ed", "xavier", "greg" };
-	assert(lookup(people2,-5,"ed") == -1); 
-	assert(lookup(people2,0,"ed") == -1);
-	assert(lookup(people2,5,"ed") == 2);
-	assert(lookup(people2,5,"john") == -1); 
-
-	string candidate[6] = { "dianne", "fiona", "gavin", "xavier", "ed", "betty" };
-	assert(positionOfMax(candidate,6) == 3);
-	assert(positionOfMax(candidate,0) == -1);
-
-	string politician[5] = { "eleni", "dianne", "fiona", "kevin", "gavin" };
-	assert(rotateLeft(politician,5,1) == 1);
-
-	string x[9] = {
-    "xavier", "betty", "john", "john", "ed", "ed", "ed", "john", "john"}; 
-    assert(countRuns(x,9) == 5);
-
-    string folks[6] = { "betty", "john", "", "xavier", "kevin", "dianne" };
-    assert(flip(folks,4) == 4); 
-
-    string buddies[6] = { "betty", "john", "", "xavier", "kevin", "dianne" };
-	string group[5] = { "betty", "john", "dianne", "", "xavier" };
-	assert(differ(buddies,6,group,5) == 2);
-	assert(differ(buddies,2,group,1) == 1);
-
-	string names[10] = { "eleni", "gavin", "kevin", "greg", "betty", "fiona" };
-	string names1[10] = { "gavin", "kevin", "greg" };
-
-	assert(subsequence(names,6,names1,3) == 1);
-	string names2[10] = { "eleni", "greg" };
-	assert(subsequence(names,5,names2,2) == -1);
-
-	string ids[10] = { "eleni", "gavin", "kevin", "greg", "betty", "fiona" };
-	string set1[10] = { "dianne", "betty", "greg", "gavin" };
-	assert(lookupAny(ids,6,set1,4) == 1);
-	string set2[10] = { "xavier", "ed" };
-	assert(lookupAny(ids,6,set2,2) == -1);
-
-	string candidates[6] = { "dianne", "fiona", "gavin", "xavier", "ed", "betty" };
-	assert(divide(candidates,6,"eleni") == 3); 
-	string candidate2[4] = { "gavin", "kevin", "fiona", "john" };
-	assert(divide(candidate2,4,"john") == 2);
-
-	//their main routine 
-	string h[7] = { "greg", "gavin", "ed", "xavier", "", "eleni", "fiona" };
-	assert(lookup(h, 7, "eleni") == 5);
-	assert(lookup(h, 7, "ed") == 2);
-	assert(lookup(h, 2, "ed") == -1);
-	assert(positionOfMax(h, 7) == 3);
-
-	string g[4] = { "greg", "gavin", "fiona", "kevin" };
-	assert(differ(h, 4, g, 4) == 2);
-	assert(appendToAll(g, 4, "?") == 4 && g[0] == "greg?" && g[3] == "kevin?");
-	assert(rotateLeft(g, 4, 1) == 1 && g[1] == "fiona?" && g[3] == "gavin?");
-
-	string e[4] = { "ed", "xavier", "", "eleni" };
-	assert(subsequence(h, 7, e, 4) == 2);
-
-	string d[5] = { "gavin", "gavin", "gavin", "xavier", "xavier" };
-	assert(countRuns(d, 5) == 2);
-	
-	string f[3] = { "fiona", "ed", "john" };
-	assert(lookupAny(h, 7, f, 3) == 2);
-	assert(flip(f, 3) == 3 && f[0] == "john" && f[2] == "fiona");
-	
-	assert(divide(h, 7, "fiona") == 3);
-	
-	cout << “Good job\n”;
-	*/
 	return 0;
 }
 
@@ -367,5 +293,5 @@ int divide(string a[], int n, string divider)
 			return i;
 	}
 
-	return n-1;
+	return n;
 }
