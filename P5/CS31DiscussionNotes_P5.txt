@@ -1,0 +1,45 @@
+
+#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+
+
+-Two functions:
+	-int makeProper --> zero or more purported patterns inputted in 2 c-string arrays and 1 int separation value array
+		-by the time of returning, arrays must be altered
+		-return number of properly formatted patterns
+
+
+
+-remove helper functions
+	-hint: rotateLeft
+	-move pattern from pos n+1 to end of the array
+		-one place to the left)
+
+-make proper function:
+	-1. npattern >= 0
+		while (i < npatterns)
+		{
+			2. seperation[i] > 0;
+			3. word1[i][0] == '\0' //words[i][0] == '\0' --> call remove helper function
+			4. convert letter to lower case 'a' - 'z', delete if not a letter
+			5. check duplicate patterns --> mad scientist, scientist mad
+		}
+
+
+-rate function:
+	-use assert statements as demonstrated in the specification
+	-remove non-alpha, non-space characters
+
+-Visual Studio
+	-#define _CRT_SECURE_NO_WARNINGS
+	-#include <iostream>
+	-#include <cstring>
+	-#include <casser>
+	-#include <cctype>
+
+str.c_str() <-- member function that returns a pointer to a character array
