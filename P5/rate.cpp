@@ -237,60 +237,6 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 		cout << endl;
 	}
 
-	//declare local array copies of inputted arrays
-	// char local_word1[nPatterns][MAX_WORD_LENGTH+1];
-	// char local_word2[nPatterns][MAX_WORD_LENGTH+1];
-	// int local_separation[nPatterns];
-
-	// for (int k=0; k < nPatterns; k++)
-	// {
-	// 	strcpy(local_word1[k], word1[k]);
-	// 	strcpy(local_word2[k], word2[k]);
-	// 	local_separation[k] = separation[k];
-	// }
-
-	// //iterate through wordsInDocument
-	// for (; cursor < currentWord; cursor++)
-	// {
-	// 	//iterate through word1 patterns array
-	// 	for (int i = 0; i < nPatterns;)
-	// 	{
-	// 		bool removedItem = false;
-
-	// 		if (strcmp(wordsInDocument[cursor],local_word1[i] == 0))
-	// 		{
-	// 			separationMinIndex = cursor - (local_separation[i]+1);
-	// 			separationMaxIndex = cursor + (local_separation[i]+1);
-
-	// 			if (separationMinIndex < 0)
-	// 				separationMinIndex = 0;
-	// 			if (separationMaxIndex > currentWord-1) //if max index is greater than the biggest index in the wordsInDocument array, set it to that max
-	// 				separationMaxIndex = currentWord-1;
-
-	// 			for (int j = separationMinIndex; j <= separationMaxIndex; j++)
-	// 			{
-	// 				//MAKE SURE TO ALLOW FOR "THAT THAT 3" TO BE A VALID PATTERN THAT WON'T TRIGGER ON ITSELF (ON ONE INSTANCE OF WORD "THAT")
-	// 				if (j == cursor)
-	// 					continue;
-
-	// 				//if 2nd respective word matching too, consume pattern and increment totalRating counter by 1
-	// 				if (strcmp(wordsInDocument[j],local_word2[i]))
-	// 				{
-	// 					remove(i, nPatterns, local_word1, local_word2, local_separation);
-	// 					removedItem = true;
-	// 					totalRating++;
-	// 					break;
-	// 				}
-	// 			}	
-	// 		}
-
-	// 		if (removedItem)
-	// 			continue;
-
-	// 		i++;
-	// 	}
-	// }
-
 	//declare counting variables for actual determining of totalRating
 	int totalRating = 0;
 	int separationMinIndex;
@@ -338,22 +284,4 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 	cout << "Document ratiing is: " << totalRating;
 
 	return totalRating;
-
-	//copy all arrays into local variables
-	//set cursor to beginning of local variable copy for "document"
-	//repeating
-		//copy c-string into temp char array until cursor hits space (append a '\0' to end) (if hitting '\0' before a space, then know at end)
-			//for loop, strcmp temp char array to "ith" element of "word1"
-				//if match, (set cursor2 to cursor1) and move cursor2 back "separation+2" number of spaces (check for out of boundaries by seeing if cursor2 will ever go < 0, and if so, just set spaces counter to = "separation+2"), and add 1 index to move to beginning of proper word
-					//copy c-string into temp char array until cursor hits a space (append a '\0' to end) (if hitting '\0' before a space, then know at end)
-						//if cursor2 == cursor1, set spacesCounter to 0 and continue on to next iteration
-						//strcmp temp char array to respective element of "word2"
-							//if match, +1 to total ratingCount AND remove pattern from list with custom "remove" function
-						//if not, re-loop copying of c-string and incrementing counter when cursor hits a space
-		//+1 cursor1 at end to be at start of next word
-
-	//check edge cases of "hello   \0" for document
-
-	//"document" comparing with "ith" element of "word1"
-			//if match, look for second word in pattern from range of "ith word of document - (separation+1)" to "ith word of document + (separation+1)"
 }
