@@ -52,10 +52,10 @@ int main()
 
 	int numberOfValidPatterns = makeProper(w1, w2, separation, CANDIDATE_PATTERNS);
 
-	for (int i = 0; i < numberOfValidPatterns; i++)
-	{
-		cout << w1[i] << ", " << w2[i] << ", " << separation[i] << endl;
-	}
+	// for (int i = 0; i < numberOfValidPatterns; i++)
+	// {
+	// 	cout << w1[i] << ", " << w2[i] << ", " << separation[i] << endl;
+	// }
 
 	char zoeQuotesPatterns1[CANDIDATE_PATTERNS][MAX_WORD_LENGTH + 1] = {
 		"ive", "oh", "here", "mooncake", "do", "salad", "together", "something", "mooncake", "bread", "it", "something"
@@ -82,12 +82,6 @@ int main()
 
 int makeProper(char word1[][MAX_WORD_LENGTH + 1], char word2[][MAX_WORD_LENGTH + 1], int separation[], int nPatterns)
 {
-	//every word only has letters
-	//every word has >= 1 letter
-	//lowercase
-
-	//must be removed if no characters or contains non-letter
-
 	if (nPatterns <= 0)
 		return 0;
 
@@ -228,37 +222,20 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 	}
 
 	wordsInDocument[currentWord][j] = '\0';
-	
-	//FOR DEBUGGING
-	for (int i = 0; i <= currentWord; i++)
-	{
-		for (int j = 0; wordsInDocument[i][j] != '\0'; j++)
-		{
-			cout << wordsInDocument[i][j];
-		}
-		cout << " "; //endl;
-	}
 
 	//declare counting variables for actual determining of totalRating
 	int totalRating = 0;
 	int separationMinIndex;
 	int separationMaxIndex;
 
-	cout << "HERE ARE THE WORD AMOUNTS: " << currentWord << endl;
-
 	//iterate through word1 patterns array
 	for (int candidatePattern = 0; candidatePattern < nPatterns; candidatePattern++)
 	{
 		bool patternMatch = false;
 
-		//cout << "wth here is the candidatePattern: " << candidatePattern << endl;
-
-
 		//iterate through copied words from document array
 		for (int cursor = 0; cursor <= currentWord && (patternMatch == false); cursor++)
 		{
-			//cout << "wth here is the cursor: " << cursor << endl;
-
 			if (strcmp(wordsInDocument[cursor], word1[candidatePattern]) == 0)
 			{
 				separationMinIndex = cursor - (separation[candidatePattern] + 1);
@@ -289,8 +266,6 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 			}
 		}
 	}
-
-	cout << "Document ratiing is: " << totalRating;
 
 	return totalRating;
 }
