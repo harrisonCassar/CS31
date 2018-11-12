@@ -234,7 +234,7 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 		{
 			cout << wordsInDocument[i][j];
 		}
-		cout << endl;
+		cout << " "; //endl;
 	}
 
 	//declare counting variables for actual determining of totalRating
@@ -242,14 +242,21 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 	int separationMinIndex;
 	int separationMaxIndex;
 
+	cout << "HERE ARE THE WORD AMOUNTS: " << currentWord << endl;
+
 	//iterate through word1 patterns array
 	for (int candidatePattern = 0; candidatePattern < nPatterns; candidatePattern++)
 	{
 		bool patternMatch = false;
 
-		//iterate through word1 patterns array
-		for (int cursor = 0; cursor < currentWord && (patternMatch == false); cursor++)
+		cout << "wth here is the candidatePattern: " << candidatePattern << endl;
+
+
+		//iterate through copied words from document array
+		for (int cursor = 0; cursor <= currentWord && (patternMatch == false); cursor++)
 		{
+			cout << "wth here is the cursor: " << cursor << endl;
+
 			if (strcmp(wordsInDocument[cursor], word1[candidatePattern]) == 0)
 			{
 				separationMinIndex = cursor - (separation[candidatePattern] + 1);
@@ -266,8 +273,8 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 					if (j == cursor)
 						continue;
 
-					//if 2nd respective word matching too, consume pattern and increment totalRating counter by 1
-					if (strcmp(wordsInDocument[j], word2[cursor]))
+					//if 2nd respective word matching too, increment totalRating counter by 1 and indicate pattern has been found
+					if (strcmp(wordsInDocument[j], word2[candidatePattern]))
 					{
 						patternMatch = true;
 
