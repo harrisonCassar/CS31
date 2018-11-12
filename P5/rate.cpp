@@ -73,6 +73,8 @@ int main()
 		"I've got a magic present for you! Here it comes!    Let's like, do something together... Oh! Do you like mooncake?!"
 	};
 
+	//ive got a magic present for you here it comes lets like do something together oh do you like mooncake
+
 	rate(zoeQuotes, zoeQuotesPatterns1, zoeQuotesPatterns2, zoeQuotesSeparations, CANDIDATE_PATTERNS);
 
 	return 0;
@@ -249,13 +251,13 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 	{
 		bool patternMatch = false;
 
-		cout << "wth here is the candidatePattern: " << candidatePattern << endl;
+		//cout << "wth here is the candidatePattern: " << candidatePattern << endl;
 
 
 		//iterate through copied words from document array
 		for (int cursor = 0; cursor <= currentWord && (patternMatch == false); cursor++)
 		{
-			cout << "wth here is the cursor: " << cursor << endl;
+			//cout << "wth here is the cursor: " << cursor << endl;
 
 			if (strcmp(wordsInDocument[cursor], word1[candidatePattern]) == 0)
 			{
@@ -274,11 +276,11 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 						continue;
 
 					//if 2nd respective word matching too, increment totalRating counter by 1 and indicate pattern has been found
-					if (strcmp(wordsInDocument[j], word2[candidatePattern]))
+					if (strcmp(wordsInDocument[j], word2[candidatePattern]) == 0)
 					{
 						patternMatch = true;
 
-						cerr << "Match found on pattern #" << cursor << ", with first letter of word1 being: " << word1[cursor][0] << endl;
+						cerr << "Match found on word #" << cursor << ", pattern #" << candidatePattern << ", with first letter of word1 being: " << word1[candidatePattern][0] << endl;
 
 						totalRating++;
 						break;
