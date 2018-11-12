@@ -62,7 +62,7 @@ int main()
 		"I've got a magic present for you! Here it comes!    Let's like, do something together... Oh! Do you like mooncake?!"
 	};
 
-	rate(testDocument, w1, w2, separation);
+	rate(testDocument, w1, w2, separation, numberOfValidPatterns);
 
 	return 0;
 }
@@ -211,35 +211,76 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH+1], const cha
 	}
 
 	//declare local array copies of inputted arrays
-	char local_word1[nPatterns][MAX_WORD_LENGTH+1];
-	char local_word2[nPatterns][MAX_WORD_LENGTH+1];
-	int local_separation[nPatterns];
+	// char local_word1[nPatterns][MAX_WORD_LENGTH+1];
+	// char local_word2[nPatterns][MAX_WORD_LENGTH+1];
+	// int local_separation[nPatterns];
 
-	for (int k=0; k < nPatterns; k++)
-	{
-		strcpy(local_word1[k], word1[k]);
-		strcpy(local_word2[k], word2[k]);
-		local_separation[k] = separation[k];
-	}
+	// for (int k=0; k < nPatterns; k++)
+	// {
+	// 	strcpy(local_word1[k], word1[k]);
+	// 	strcpy(local_word2[k], word2[k]);
+	// 	local_separation[k] = separation[k];
+	// }
+
+	// //iterate through wordsInDocument
+	// for (; cursor < currentWord; cursor++)
+	// {
+	// 	//iterate through word1 patterns array
+	// 	for (int i = 0; i < nPatterns;)
+	// 	{
+	// 		bool removedItem = false;
+
+	// 		if (strcmp(wordsInDocument[cursor],local_word1[i] == 0))
+	// 		{
+	// 			separationMinIndex = cursor - (local_separation[i]+1);
+	// 			separationMaxIndex = cursor + (local_separation[i]+1);
+
+	// 			if (separationMinIndex < 0)
+	// 				separationMinIndex = 0;
+	// 			if (separationMaxIndex > currentWord-1) //if max index is greater than the biggest index in the wordsInDocument array, set it to that max
+	// 				separationMaxIndex = currentWord-1;
+
+	// 			for (int j = separationMinIndex; j <= separationMaxIndex; j++)
+	// 			{
+	// 				//MAKE SURE TO ALLOW FOR "THAT THAT 3" TO BE A VALID PATTERN THAT WON'T TRIGGER ON ITSELF (ON ONE INSTANCE OF WORD "THAT")
+	// 				if (j == cursor)
+	// 					continue;
+
+	// 				//if 2nd respective word matching too, consume pattern and increment totalRating counter by 1
+	// 				if (strcmp(wordsInDocument[j],local_word2[i]))
+	// 				{
+	// 					remove(i, nPatterns, local_word1, local_word2, local_separation);
+	// 					removedItem = true;
+	// 					totalRating++;
+	// 					break;
+	// 				}
+	// 			}	
+	// 		}
+
+	// 		if (removedItem)
+	// 			continue;
+
+	// 		i++;
+	// 	}
+	// }
 
 	//declare counting variables for actual determining of totalRating
 	int totalRating = 0;
-	int cursor = 0;
 	int separationMinIndex;
 	int separationMaxIndex;
 
-	//iterate through wordsInDocument
-	for (; cursor < currentWord; cursor++)
+	//iterate through word1 patterns array
+	for (int candidatePattern = 0; candidatePattern < nPatterns; candidatePattern++)
 	{
-		//iterate through word1 patterns array
-		for (int i = 0; i < nPatterns;)
-		{
-			bool removedItem = false;
+		bool patternMatch = false;
 
-			if (strcmp(wordsInDocument[cursor],local_word1[i] == 0))
+		//iterate through word1 patterns array
+		for (int cursor = 0; cursor < currentWord && (patternMatch == false); cursor++)
+		{
+			if (strcmp(wordsInDocument[cursor],word1[candidatePattern] == 0))
 			{
-				separationMinIndex = cursor - (local_separation[i]+1);
-				separationMaxIndex = cursor + (local_separation[i]+1);
+				separationMinIndex = cursor - (separation[candidatePattern]+1);
+				separationMaxIndex = cursor + (separation[candidatePattern]+1);
 
 				if (separationMinIndex < 0)
 					separationMinIndex = 0;
@@ -253,20 +294,14 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH+1], const cha
 						continue;
 
 					//if 2nd respective word matching too, consume pattern and increment totalRating counter by 1
-					if (strcmp(wordsInDocument[j],local_word2[i]))
+					if (strcmp(wordsInDocument[j],word2[i]))
 					{
-						remove(i, nPatterns, local_word1, local_word2, local_separation);
-						removedItem = true;
+						patternMatch = true;
 						totalRating++;
 						break;
 					}
 				}	
 			}
-
-			if (removedItem)
-				continue;
-
-			i++;
 		}
 	}
 
