@@ -26,14 +26,14 @@ using namespace std;
 //declare global constants
 const int MAX_WORD_LENGTH = 20;
 const int MAX_DOCUMENT_CHARACTERS = 250;
-const int MAX_WORDS_IN_DOCUMENT = MAX_DOCUMENT_CHARACTERS/2;
+const int MAX_WORDS_IN_DOCUMENT = MAX_DOCUMENT_CHARACTERS / 2;
 
 //required function prototypes
-int makeProper(char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1], int separation[], int nPatterns);
-int rate(const char document[], const char word1[][MAX_WORD_LENGTH+1], const char word2[][MAX_WORD_LENGTH+1], const int separation[], int nPatterns);
+int makeProper(char word1[][MAX_WORD_LENGTH + 1], char word2[][MAX_WORD_LENGTH + 1], int separation[], int nPatterns);
+int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const char word2[][MAX_WORD_LENGTH + 1], const int separation[], int nPatterns);
 
 //additional function prototypes
-void remove(int index, int& totalPatterns, char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1], int separation[]);
+void remove(int index, int& totalPatterns, char word1[][MAX_WORD_LENGTH + 1], char word2[][MAX_WORD_LENGTH + 1], int separation[]);
 
 //testing processes of coded functions
 int main()
@@ -57,24 +57,35 @@ int main()
 		cout << w1[i] << ", " << w2[i] << ", " << separation[i] << endl;
 	}
 
+	char zoeQuotesPatterns1[CANDIDATE_PATTERNS][MAX_WORD_LENGTH + 1] = {
+		"ive", "oh", "here", "mooncake", "do", "salad", "together", "something", "mooncake", "bread", "it", "something"
+	};
 
-	char testDocument[120] = {
+	char zoeQuotesPatterns2[CANDIDATE_PATTERNS][MAX_WORD_LENGTH + 1] = {
+		"a", "magic", "comes", "like", "like", "potato", "something", "do", "present", "tomato", "bread", "ive"
+	};
+
+	//1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1
+
+	int zoeQuotesSeparations[CANDIDATE_PATTERNS] = { 1, 6, 0, 3, 5, 1, 0, 0, 2, 4, 1, 12 };
+
+	char zoeQuotes[120] = {
 		"I've got a magic present for you! Here it comes!    Let's like, do something together... Oh! Do you like mooncake?!"
 	};
 
-	rate(testDocument, w1, w2, separation, numberOfValidPatterns);
+	rate(zoeQuotes, zoeQuotesPatterns1, zoeQuotesPatterns2, zoeQuotesSeparations, CANDIDATE_PATTERNS);
 
 	return 0;
 }
 
-int makeProper(char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1], int separation[], int nPatterns)
+int makeProper(char word1[][MAX_WORD_LENGTH + 1], char word2[][MAX_WORD_LENGTH + 1], int separation[], int nPatterns)
 {
 	//every word only has letters
 	//every word has >= 1 letter
 	//lowercase
 
 	//must be removed if no characters or contains non-letter
-	
+
 	if (nPatterns <= 0)
 		return 0;
 
@@ -100,8 +111,8 @@ int makeProper(char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1],
 				removedItem = true;
 				break;
 			}
-			
-			word1[i][j] = tolower(word1[i][j]); 
+
+			word1[i][j] = tolower(word1[i][j]);
 		}
 
 		if (removedItem)
@@ -116,8 +127,8 @@ int makeProper(char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1],
 				removedItem = true;
 				break;
 			}
-			
-			word2[i][k] = tolower(word2[i][k]); 
+
+			word2[i][k] = tolower(word2[i][k]);
 		}
 
 		if (removedItem)
@@ -126,9 +137,9 @@ int makeProper(char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1],
 		//check if pattern is a repeat
 		for (int m = 0; m < i; m++)
 		{
-			if (strcmp(word1[i],word1[m]) == 0)
+			if (strcmp(word1[i], word1[m]) == 0)
 			{
-				if (strcmp(word2[i],word2[m]) == 0)
+				if (strcmp(word2[i], word2[m]) == 0)
 				{
 					if (separation[i] <= separation[m])
 						remove(i, nPatterns, word1, word2, separation);
@@ -140,9 +151,9 @@ int makeProper(char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1],
 				}
 			}
 
-			if (strcmp(word1[i],word2[m]) == 0)
+			if (strcmp(word1[i], word2[m]) == 0)
 			{
-				if (strcmp(word2[i],word1[m]) == 0)
+				if (strcmp(word2[i], word1[m]) == 0)
 				{
 					if (separation[i] <= separation[m])
 						remove(i, nPatterns, word1, word2, separation);
@@ -152,7 +163,7 @@ int makeProper(char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1],
 					removedItem = true;
 					break;
 				}
-			}		
+			}
 		}
 
 		if (removedItem)
@@ -166,20 +177,20 @@ int makeProper(char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1],
 }
 
 //REMOVE FUNCTION MUST INCLUDE UPDATING OF NPATTERNS -1 &nPatterns
-void remove(int index, int& totalPatterns, char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1], int separation[])
+void remove(int index, int& totalPatterns, char word1[][MAX_WORD_LENGTH + 1], char word2[][MAX_WORD_LENGTH + 1], int separation[])
 {
 	totalPatterns--;
 
 	//iterate through array past the inputted position, setting previous array element to the next element's value
 	for (int i = index; i < totalPatterns; i++)
 	{
-		strcpy(word1[i],word1[i+1]);
-		strcpy(word2[i],word2[i+1]); 
+		strcpy(word1[i], word1[i + 1]);
+		strcpy(word2[i], word2[i + 1]);
 		separation[i] = separation[i + 1];
 	}
 }
 
-int rate(const char document[], const char word1[][MAX_WORD_LENGTH+1], const char word2[][MAX_WORD_LENGTH+1], const int separation[], int nPatterns)
+int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const char word2[][MAX_WORD_LENGTH + 1], const int separation[], int nPatterns)
 {
 	//treat all negative nPatterns as 0
 	if (nPatterns <= 0)
@@ -193,21 +204,37 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH+1], const cha
 
 	//iterate through document c-string to make a copy
 	for (i = 0; document[i] != '\0'; i++)
-	{	
-		if (isalpha(document[i]))
+	{
+		if (document[i] == ' ')
 		{
-			wordsInDocument[currentWord][j] = tolower(document[i]);
-			j++;
-		}
-
-		else if (document[i] == ' ')
-		{
+			if (document[i+1] == '\0')
+				break;
+			if (document[i+1] == ' ')
+				continue;
+			
 			wordsInDocument[currentWord][j] = '\0';
 
 			//reset parsed words' character counter and incremented word counter
 			j = 0;
 			currentWord++;
 		}
+		else if (isalpha(document[i]))
+		{
+			wordsInDocument[currentWord][j] = tolower(document[i]);
+			j++;
+		}
+	}
+
+	wordsInDocument[currentWord][j] = '\0';
+	
+	//FOR DEBUGGING
+	for (int i = 0; i <= currentWord; i++)
+	{
+		for (int j = 0; wordsInDocument[i][j] != '\0'; j++)
+		{
+			cout << wordsInDocument[i][j];
+		}
+		cout << endl;
 	}
 
 	//declare local array copies of inputted arrays
@@ -277,15 +304,15 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH+1], const cha
 		//iterate through word1 patterns array
 		for (int cursor = 0; cursor < currentWord && (patternMatch == false); cursor++)
 		{
-			if (strcmp(wordsInDocument[cursor],word1[candidatePattern] == 0))
+			if (strcmp(wordsInDocument[cursor], word1[candidatePattern]) == 0)
 			{
-				separationMinIndex = cursor - (separation[candidatePattern]+1);
-				separationMaxIndex = cursor + (separation[candidatePattern]+1);
+				separationMinIndex = cursor - (separation[candidatePattern] + 1);
+				separationMaxIndex = cursor + (separation[candidatePattern] + 1);
 
 				if (separationMinIndex < 0)
 					separationMinIndex = 0;
-				if (separationMaxIndex > currentWord-1) //if max index is greater than the biggest index in the wordsInDocument array, set it to that max
-					separationMaxIndex = currentWord-1;
+				if (separationMaxIndex > currentWord - 1) //if max index is greater than the biggest index in the wordsInDocument array, set it to that max
+					separationMaxIndex = currentWord - 1;
 
 				for (int j = separationMinIndex; j <= separationMaxIndex; j++)
 				{
@@ -294,13 +321,16 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH+1], const cha
 						continue;
 
 					//if 2nd respective word matching too, consume pattern and increment totalRating counter by 1
-					if (strcmp(wordsInDocument[j],word2[i]))
+					if (strcmp(wordsInDocument[j], word2[cursor]))
 					{
 						patternMatch = true;
+
+						cerr << "Match found on pattern #" << cursor << ", with first letter of word1 being: " << word1[cursor][0] << endl;
+
 						totalRating++;
 						break;
 					}
-				}	
+				}
 			}
 		}
 	}
