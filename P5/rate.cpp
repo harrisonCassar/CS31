@@ -80,22 +80,26 @@ int main()
 	return 0;
 }
 
+//takes in inputted candidate patterns and alters the arrays to only have proper, non-repeating patterns, returning the number of proper patterns
 int makeProper(char word1[][MAX_WORD_LENGTH + 1], char word2[][MAX_WORD_LENGTH + 1], int separation[], int nPatterns)
 {
+	//check for negative or 0 for indicated number of patterns
 	if (nPatterns <= 0)
 		return 0;
 
+	//loop through all pattern sets inputted
 	for (int i = 0; i < nPatterns;)
 	{
+		//check for negative separation values and 0 length for words for focused pattern
 		int length1 = strlen(word1[i]);
 		int length2 = strlen(word2[i]);
-
 		if (separation[i] < 0 || length1 == 0 || length2 == 0)
 		{
 			remove(i, nPatterns, word1, word2, separation);
 			continue;
 		}
 
+		//declare boolean, intialized to false for checking if pattern was removed
 		bool removedItem = false;
 
 		//check for invalid characters in word1 and make all lower
@@ -111,6 +115,7 @@ int makeProper(char word1[][MAX_WORD_LENGTH + 1], char word2[][MAX_WORD_LENGTH +
 			word1[i][j] = tolower(word1[i][j]);
 		}
 
+		//check to see if pattern is already determined invalid and was removed
 		if (removedItem)
 			continue;
 
@@ -127,12 +132,14 @@ int makeProper(char word1[][MAX_WORD_LENGTH + 1], char word2[][MAX_WORD_LENGTH +
 			word2[i][k] = tolower(word2[i][k]);
 		}
 
+		//check to see if pattern is already determined invalid and was removed
 		if (removedItem)
 			continue;
 
 		//check if pattern is a repeat
 		for (int m = 0; m < i; m++)
 		{
+			//check if word1 of current pattern is equal to word1 of any past patterns
 			if (strcmp(word1[i], word1[m]) == 0)
 			{
 				if (strcmp(word2[i], word2[m]) == 0)
@@ -147,6 +154,7 @@ int makeProper(char word1[][MAX_WORD_LENGTH + 1], char word2[][MAX_WORD_LENGTH +
 				}
 			}
 
+			//check if word1 of current pattern is equal to word2 of any past patterns
 			if (strcmp(word1[i], word2[m]) == 0)
 			{
 				if (strcmp(word2[i], word1[m]) == 0)
@@ -162,6 +170,7 @@ int makeProper(char word1[][MAX_WORD_LENGTH + 1], char word2[][MAX_WORD_LENGTH +
 			}
 		}
 
+		//check to see if pattern is already determined invalid and was removed
 		if (removedItem)
 			continue;
 
@@ -169,6 +178,7 @@ int makeProper(char word1[][MAX_WORD_LENGTH + 1], char word2[][MAX_WORD_LENGTH +
 		i++;
 	}
 
+	//return final number of proper patterns
 	return nPatterns;
 }
 
