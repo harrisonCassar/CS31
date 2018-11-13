@@ -14,11 +14,18 @@ a. Brief description of notable obstacles I overcame:
 	
 	-Just like last project and the project before, also making sure to never go outside the bounds of an array was very important to maintain as well. Multiple times I had to make sure that I addressed the possibilities for patterns that may cause my code to look beyond the array's boundaries (i.e. a separation value of 0 or more when one of the words are found at the beginning/end of the document c-string).
 
-	-Finding subtle syntax bugs that were silently present in my code (for example, comparing the return value of "strcmp" to 0 to see if equal and not simply leaving it alone in the conditional statement).
+	-Finding subtle syntax bugs that were silently present in my code (for example, comparing the return value of "strcmp" to 0 to see if equal and not simply leaving it alone in the conditional statement, which would still compile).
 
 b. Description of the design of the program (psuedocode included):
 	-for "makeProper":
-		-
+		-essentially, first checks for any 0 or negative nPatterns input, and instantly returns 0 if found (as specified in the specification)
+		-proceeds to iterate through each candidate pattern:
+			-checking (and removing pattern if):
+				-separation values are < 0
+				-words lengths are 0
+				-invalid characters in words
+			-make all letters lowercase in both words
+			-then check (and remove one with less separation value) if proposed valid pattern is a repeat
 
 	-psuedocode for "makeProper":
 		check for abnormal nPatterns input (i.e. negative or 0)
@@ -33,7 +40,11 @@ b. Description of the design of the program (psuedocode included):
 			if candidate pattern is valid, prepare for next iteration by incrementing to next candidate pattern
 
 	-for "rate":
-		-
+		-essentially, first checks for any 0 or negative nPatterns input, and instantly returns 0 if found (as specified in the specification)
+		-parse document c-string into local 2D array for each individual word
+		-iterate through word1 patterns array, comparing each word to the 2D array copy
+			-if a match is found, check for a match to word2 in that pattern within the specified seperation range
+				-since patterns can only be used once, never check the same pattern twice
 
 	-psuedocode for "rate":
 		check for abnormal nPatterns input (i.e. negative or 0)
@@ -47,37 +58,125 @@ b. Description of the design of the program (psuedocode included):
 c. List of test data for inputs to thoroughly test program:
 	-for "makeProper":
 		-inputted number of patterns equal to 0
+			-nPatterns = 0;
 		-inputted number of patterns equal to negative
+			-nPatterns = -3;
 		-inputted array of proper patterns
+			-w1[2][21] = { "cat", "potato" };
+			-w2[2][21] = { "dog", "tomato" };
+			-separation[2] = { 0, 5 };
 		-inputted pattern with negative separation pattern
+			-w1[2][21] = { "cat", "potato" };
+			-w2[2][21] = { "dog", "tomato" };
+			-separation[2] = { 0, -5 };
 		-inputted pattern with word1 as a c-string of length 0
+			-w1[2][21] = { "", "potato" };
+			-w2[2][21] = { "dog", "tomato" };
+			-separation[2] = { 0, 5 };
 		-inputted pattern with word2 as a c-string of length 0
+			-w1[2][21] = { "cat", "potato" };
+			-w2[2][21] = { "", "tomato" };
+			-separation[2] = { 0, 5 };
 		-inputted pattern with word1 & word2 as c-strings of length 0
+			-w1[2][21] = { "", "potato" };
+			-w2[2][21] = { "", "tomato" };
+			-separation[2] = { 0, 5 };
 		-inputted pattern with word having a digit
+			-w1[2][21] = { "3cat", "potato" };
+			-w2[2][21] = { "dog", "tomato" };
+			-separation[2] = { 0, 5 };
 		-inputted pattern with word having a special character
+			-w1[2][21] = { "cat", "potato" };
+			-w2[2][21] = { "dog", "tomato!" };
+			-separation[2] = { 0, 5 };
 		-inputted pattern with word having a space character
+			-w1[2][21] = { "cat", "pot ato" };
+			-w2[2][21] = { "dog", "tomato" };
+			-separation[2] = { 0, 5 };
 		-inputted pattern with word having a zero byte in the middle of a word
+			-w1[2][21] = { "cat", "pot\0ato" };
+			-w2[2][21] = { "dog", "tomato" };
+			-separation[2] = { 0, 5 };
 		-inputted pattern with word having only one letter
+			-w1[2][21] = { "c", "potato" };
+			-w2[2][21] = { "dog", "tomato" };
+			-separation[2] = { 0, 5 };
 		-inputted pattern with word having capital letters only
+			-w1[2][21] = { "CAT", "potato" };
+			-w2[2][21] = { "dog", "tomato" };
+			-separation[2] = { 0, 5 };
 		-inputted pattern with word having mix of capital and lowercase letters
+			-w1[2][21] = { "cat", "potato" };
+			-w2[2][21] = { "dog", "tOmAtO" };
+			-separation[2] = { 0, 5 };
 		-inputted 2 proper identical patterns
+			-w1[2][21] = { "cat", "cat" };
+			-w2[2][21] = { "dog", "dog" };
+			-separation[2] = { 0, 0 };
 		-inputted 2 proper identical patterns but reversed word order
+			-w1[2][21] = { "cat", "dog" };
+			-w2[2][21] = { "dog", "cat" };
+			-separation[2] = { 0, 0 };
 		-inputted 2 proper identical patterns but with differing separation values
+			-w1[2][21] = { "cat", "dog" };
+			-w2[2][21] = { "dog", "cat" };
+			-separation[2] = { 0, 5 };
 
 	-for "rate":
 		-document with 0 characters
+			-document[251] = "";
 		-document with 250 characters
+			-document[251] = "aaaa......."
 		-document with words not separated by any spaces
+			-document[251] = "IvegotamagicpresentforyouHereitcomes"
 		-document with words separated by multiple spaces
+			-document[251] = "Ive  got   a   magic present     for you Here      it comes"
 		-document with words separated by one space each
+			-document[251] = "Ive got a magic present for you Here it comes"
 		-document with words separated by numbers
+			-document[251] = "Ive1got2a3magic4present5for6you7Here8it9comes"
 		-document with words separated by special characters
+			-document[251] = "Ive-got-a-magic-present-for-you-Here-it-comes"
 		-document with words that have special characters in them
+			-document[251] = "I've got a magic pre-sent for you! Here it comes!"
 		-document with words that have numbers in them
+			-document[251] = "I've got a mag3ic present for you! 2Here it 1comes!"
 		-document that starts with spaces
+			-document[251] = "         I've got a magic present for you! Here it comes!"
 		-document that ends with spaces
+			-document[251] = "I've got a magic present for you! Here it comes!         "
 		-document and pattern set that has no matches
+			-document[251] = "I've got a magic present for you! Here it comes!"
+			-w1[1][21] = { "cat" };
+			-w2[1][21] = { "dog" };
+			-separation[1] = { 0 };
 		-document and pattern set that has 1 match
+			-document[251] = "I've got a magic dog cat present for you! Here it comes!"
+			-w1[1][21] = { "cat" };
+			-w2[1][21] = { "dog" };
+			-separation[1] = { 0 };
 		-inputted pattern set is empty
+			-document[251] = "I've got a magic present for you! Here it comes!"
+			-w1[0][21] = { };
+			-w2[0][21] = { };
+			-separation[0] = { };
 		-document with word of interest at the beginning
+			-document[251] = "CAT I've got a magic present for you! Here it comes!"
+			-w1[1][21] = { "cat" };
+			-w2[1][21] = { "dog" };
+			-separation[1] = { 5 };
 		-document with word of interest at the end
+			-document[251] = "I've got a magic present for you! Here it comes! CAT"
+			-w1[1][21] = { "cat" };
+			-w2[1][21] = { "dog" };
+			-separation[1] = { 0 };
+		-inputted pattern in set with word1 and word2 as the same, and one instance of word is found in document string
+			-document[251] = "Cat I've got a magic present for you! Here it comes!"
+			-w1[1][21] = { "present" };
+			-w2[1][21] = { "present" };
+			-separation[1] = { 3 };
+		-inputted pattern in set with word1 and word2 as the same, and two instaces of word is found in document string within separation range indicated
+			-document[251] = "Cat I've got a magic present present for you! Here it comes!"
+			-w1[1][21] = { "present" };
+			-w2[1][21] = { "present" };
+			-separation[1] = { 3 };
