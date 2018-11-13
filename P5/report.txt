@@ -21,17 +21,63 @@ b. Description of the design of the program (psuedocode included):
 		-
 
 	-psuedocode for "makeProper":
-		ddd
+		check for abnormal nPatterns input (i.e. negative or 0)
+		repeating with each pattern
+			check and remove proposed pattern with negative separation value or has words with 0 length
+			iterate through word1 c-string, removing pattern if it has invalid characters and making every letter lowercase
+				if item removed, continue to next iteration
+			iterate through word2 c-string, removing pattern if it has invalid characters and making every letter lowercase
+				if item removed, continue to next iteration
+			compare seemingly-valid candidate pattern to past seen valid patterns for repeats
+				if matching in any way (reversible or not), remove candidate pattern
+			if candidate pattern is valid, prepare for next iteration by incrementing to next candidate pattern
 
 	-for "rate":
 		-
 
 	-psuedocode for "rate":
-		ffff
+		check for abnormal nPatterns input (i.e. negative or 0)
+		parse document c-string into local 2D array for individual words
+		iterate through inputted word1 patterns array
+			compare to words in local 2D array copy
+				if match, check for matching word2 within indicated separation range for that pattern
+					if found, increment rating counter, and skip to iteration with next pattern
 
-b. List of test data for inputs to thoroughly test program:
+
+c. List of test data for inputs to thoroughly test program:
 	-for "makeProper":
-		-
+		-inputted number of patterns equal to 0
+		-inputted number of patterns equal to negative
+		-inputted array of proper patterns
+		-inputted pattern with negative separation pattern
+		-inputted pattern with word1 as a c-string of length 0
+		-inputted pattern with word2 as a c-string of length 0
+		-inputted pattern with word1 & word2 as c-strings of length 0
+		-inputted pattern with word having a digit
+		-inputted pattern with word having a special character
+		-inputted pattern with word having a space character
+		-inputted pattern with word having a zero byte in the middle of a word
+		-inputted pattern with word having only one letter
+		-inputted pattern with word having capital letters only
+		-inputted pattern with word having mix of capital and lowercase letters
+		-inputted 2 proper identical patterns
+		-inputted 2 proper identical patterns but reversed word order
+		-inputted 2 proper identical patterns but with differing separation values
 
 	-for "rate":
-		-
+		-document with 0 characters
+		-document with 250 characters
+		-document with words not separated by any spaces
+		-document with words separated by multiple spaces
+		-document with words separated by one space each
+		-document with words separated by numbers
+		-document with words separated by special characters
+		-document with words that have special characters in them
+		-document with words that have numbers in them
+		-document that starts with spaces
+		-document that ends with spaces
+		-document and pattern set that has no matches
+		-document and pattern set that has 1 match
+		-inputted pattern set is empty
+		-document with word of interest at the beginning
+		-document with word of interest at the end
