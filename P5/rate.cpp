@@ -178,11 +178,11 @@ int makeProper(char word1[][MAX_WORD_LENGTH + 1], char word2[][MAX_WORD_LENGTH +
 		i++;
 	}
 
-	//return final number of proper patterns
+	//return final number of proper patterns (nPatterns is modified by "remove" function)
 	return nPatterns;
 }
 
-//REMOVE FUNCTION MUST INCLUDE UPDATING OF NPATTERNS -1 &nPatterns
+//remove function utilized in "makeProper" function above for removing and properly adjusting arrays and nPatterns variable
 void remove(int index, int& totalPatterns, char word1[][MAX_WORD_LENGTH + 1], char word2[][MAX_WORD_LENGTH + 1], int separation[])
 {
 	totalPatterns--;
@@ -196,9 +196,10 @@ void remove(int index, int& totalPatterns, char word1[][MAX_WORD_LENGTH + 1], ch
 	}
 }
 
+//takes in document c-string and arrays of patterns in proper form and returns the number of patterns that have a match in the document c-string
 int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const char word2[][MAX_WORD_LENGTH + 1], const int separation[], int nPatterns)
 {
-	//treat all negative nPatterns as 0
+	//treat all negative nPatterns as 0 (return 0 instantly)
 	if (nPatterns <= 0)
 		return 0;
 
@@ -208,7 +209,7 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 	//declaring and initializing counting variables
 	int i, j = 0, currentWord = 0;
 
-	//iterate through document c-string to make a copy
+	//iterate through document c-string to make a copy of each word into separate array element
 	for (i = 0; document[i] != '\0'; i++)
 	{
 		if (document[i] == ' ')
@@ -231,6 +232,7 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 		}
 	}
 
+	//append on to end of copy a zerobyte for the last element
 	wordsInDocument[currentWord][j] = '\0';
 
 	//declare counting variables for actual determining of totalRating
@@ -248,9 +250,11 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 		{
 			if (strcmp(wordsInDocument[cursor], word1[candidatePattern]) == 0)
 			{
+				//calculate min and max index relative to current cursor position that found match
 				separationMinIndex = cursor - (separation[candidatePattern] + 1);
 				separationMaxIndex = cursor + (separation[candidatePattern] + 1);
 
+				//adjust min and max index range values to ensure not stepping over array boundaries
 				if (separationMinIndex < 0)
 					separationMinIndex = 0;
 				if (separationMaxIndex > currentWord - 1) //if max index is greater than the biggest index in the wordsInDocument array, set it to that max
@@ -258,7 +262,7 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 
 				for (int j = separationMinIndex; j <= separationMaxIndex; j++)
 				{
-					//MAKE SURE TO ALLOW FOR "THAT THAT 3" TO BE A VALID PATTERN THAT WON'T TRIGGER ON ITSELF (ON ONE INSTANCE OF WORD "THAT")
+					//skip over initial word so that patterns with identical word1 and word2 are considered correctly
 					if (j == cursor)
 						continue;
 
@@ -266,9 +270,6 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 					if (strcmp(wordsInDocument[j], word2[candidatePattern]) == 0)
 					{
 						patternMatch = true;
-
-						cerr << "Match found on word #" << cursor << ", pattern #" << candidatePattern << ", with first letter of word1 being: " << word1[candidatePattern][0] << endl;
-
 						totalRating++;
 						break;
 					}
@@ -277,5 +278,6 @@ int rate(const char document[], const char word1[][MAX_WORD_LENGTH + 1], const c
 		}
 	}
 
+	//return totalRating after incrementation
 	return totalRating;
 }
