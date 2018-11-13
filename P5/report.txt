@@ -1,0 +1,37 @@
+Harrison Cassar
+ID: 505114980
+Discussion 1F
+TA: Tao Zhou
+
+Report for CS31 Project 5: Pattern Recognition
+
+a. Brief description of notable obstacles I overcame:
+	-Being able to visualize what the code I was writing was trying to accomplish (which essentially means trying to understand all of the specifics detailed in the specification) was one of the biggest obstacles I overcame. Multiple times I had to slow down and re-evaluate my code a couple times through, even re-writing a couple of the algorithms that my code was using to complete the specifications.
+
+	-Making sure that my code was performing correctly under different edge cases and unsual input was yet another obstacle I overcame, as each of the functions had their own subtle differences in terms of what was expected for our code's actions with certain inputs. Which also leads to the next obstacle:
+	
+	-Figuring out how to actually throughouly test my code. Simply using "assert" statements are not enough, as this only tests the return values of the functions that you put in its parameter. Therefore, reading the values inside of the arrays after the call of the functions I coded were also required (possibly even just outputting them for manual checking as well).
+	
+	-Just like last project and the project before, also making sure to never go outside the bounds of an array was very important to maintain as well. Multiple times I had to make sure that I addressed the possibilities for patterns that may cause my code to look beyond the array's boundaries (i.e. a separation value of 0 or more when one of the words are found at the beginning/end of the document c-string).
+
+	-Finding subtle syntax bugs that were silently present in my code (for example, comparing the return value of "strcmp" to 0 to see if equal and not simply leaving it alone in the conditional statement).
+
+b. Description of the design of the program (psuedocode included):
+	-for "makeProper":
+		-
+
+	-psuedocode for "makeProper":
+		ddd
+
+	-for "rate":
+		-
+
+	-psuedocode for "rate":
+		ffff
+
+b. List of test data for inputs to thoroughly test program:
+	-for "makeProper":
+		-
+
+	-for "rate":
+		-
