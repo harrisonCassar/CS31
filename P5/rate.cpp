@@ -38,61 +38,7 @@ void remove(int index, int& totalPatterns, char word1[][MAX_WORD_LENGTH + 1], ch
 //testing processes of coded functions
 int main()
 {
-	//makeProper Testing 
-	const int NUM_PATTERNS = 8; 
-	// Sample Test Case 
-	char list1[NUM_PATTERNS][MAX_WORD_LENGTH + 1] = {
-		"mad","deranged","NEFARIOUS","half-witted","robot","plot","have","NeFaRiOuS"
-	};
-	char list2[NUM_PATTERNS][MAX_WORD_LENGTH + 1] = {
-		"scientist","robot","PLOT","assistant","deranged","Nefarious","mad","pLoT"
-	};
-	int distance[NUM_PATTERNS] = {1,3,0,2,1,0,12,0}; 
-
-	assert(makeProper(list1,list2,distance,NUM_PATTERNS) == 4); 
-
-	cout << "You aight" << endl;
-	//rate Testing
-	const int TEST1_NRULES = 4;
-            char test1w1[TEST1_NRULES][MAX_WORD_LENGTH+1] = {
-                "mad",       "deranged", "nefarious", "have"
-            };
-            char test1w2[TEST1_NRULES][MAX_WORD_LENGTH+1] = {
-                "scientist", "robot",    "plot",      "mad"
-            };
-            int test1dist[TEST1_NRULES] = {
-                1,           3,          0,           12
-            };
-           int num  = 0; 
-           assert(rate("The mad UCLA scientist unleashed a deranged evil giant robot.",
-			test1w1, test1w2, test1dist, TEST1_NRULES) == 2);
-           num++; 
-           assert(rate("The mad UCLA scientist unleashed    a deranged robot.",
-			test1w1, test1w2, test1dist, TEST1_NRULES) == 2);
-           num++; 
-            assert(rate("**** 2018 ****",
-			test1w1, test1w2, test1dist, TEST1_NRULES) == 0);
-			num++; 
-            assert(rate("  That plot: NEFARIOUS!",
-			test1w1, test1w2, test1dist, TEST1_NRULES) == 1);
-			num++;
-            assert(rate("deranged deranged robot deranged robot robot",
-			test1w1, test1w2, test1dist, TEST1_NRULES) == 1);
-			num++; 
-			int x = rate("That scientist said two mad scientists suffer from deranged-robot fever.",
-			test1w1, test1w2, test1dist, TEST1_NRULES); 
-			
-            assert(rate("That scientist said two mad scientists suffer from deranged-robot fever.",
-			test1w1, test1w2, test1dist, TEST1_NRULES) == 0);
-			num++; 
-
-			for(int b = 1; b <= num; b++){
-				cout << "Test case " << b << " PASSED" << endl;
-			}
-
-    	cout << "Who's that with the amazing code? YOU! Wow, great comments and those codes are on the spot!" << endl;
-
-
+	return 0;
 }
 
 //takes in inputted candidate patterns and alters the arrays to only have proper, non-repeating patterns, returning the number of proper patterns
