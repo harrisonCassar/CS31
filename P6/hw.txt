@@ -135,7 +135,7 @@
 	-1		==>	-1 was originally assigned to the element indexed at 0 of the array via the code "*ptr = -1;", but then switched with the element indexed at 2 via the swap2 function call.
 	9		==>	Value at this element in the array was altered by the code "ptr[1] = 9;", which serves to assign 9 to the value at a relative position right in front of the value pointed to by the pointer "ptr".
 	22		==>	This value in the array was never altered by any of the code.
-	19		==> This value in the array was never altered by any of the code.	
+	19		==> 	This value in the array was never altered by any of the code.	
 
 5. 
 	removeS (char* str)
