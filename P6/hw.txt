@@ -10,24 +10,116 @@
 
 ****************************************************************************/
 
-1. a)
-	int main()
- {
- int arr[3] = { 5, 10, 15 };
- int* ptr = arr;
- *ptr = 30; // set arr[0] to 30
- *ptr + 1 = 20; // set arr[1] to 20
- ptr += 2;
- ptr[0] = 10; // set arr[2] to 10
- while (ptr >= arr)
- {
- ptr--;
- cout << *ptr << endl; // print values
- }
- }
+1. 
+	a)
+		int main()
+	 	{
+	 		int arr[3] = { 5, 10, 15 };
+	 		int* ptr = arr;
+	 		*ptr = 30; 
+	 		*(ptr + 1) = 20; //bug located here
+	 		ptr += 2;
+	 		ptr[0] = 10;
+	 
+	 		while (ptr >= arr) //bug located here (pointer decrementing should be after outputting)
+	 		{ 
+	 			cout << *ptr << endl;
+	 			ptr--; 
+	 		}
+	 	}
+
+	b) This function (findMax) won't actually do what it is intended to do because the pointer it is supposed to change is passed by value and not by reference. Therefore, in order to make the function work correctly, the third parameter in the findMax function should be altered to be passed by reference:
+
+		void findMax(int arr[], int n, int* &pToMax)
+		{...} 
+
+	c) The main function has a problem because the pointer (ptr) is uninitialized. Therefore, we are passing an uninitialized pointer to a function that changes the value that the pointer is pointing to, leading to undefined behavior, as the function follows an uninitialized pointer.
+
+		int main()
+		{
+			int a;
+			int* ptr = &a;
+			...
+		}
+
+		OR
+
+		int main()
+		{
+			int a;
+			computeCube(5, &a);
+			cout << "Five cubed is " << a << endl;
+		}
+
+	d) The problems with the implementation of the function lie in how it is comparing the pointer values themselves rather than comparing the values that the pointers are pointing to. Therefore, the str1 and str2 variables in the conditional statements of the while and if statements (as well as in the return statement) should be replaced by *str1 and *str2 respectively.
+
+		bool strequal(const char str1[], const char str2[])
+	    {
+	        while (*str1 != 0  &&  *str2 != 0)
+	        {
+	            if (*str1 != *str2)  // compare corresponding characters
+	                return false;
+	            str1++;            // advance to the next character
+	            str2++;
+	        }
+	        return *str1 == *str2;   // both ended at same time?
+	    }
+
+	e) The program is having a pointer point to an array that was created as a local variable in a function's scope. Therefore, when the program later dereferences that pointer, following it to the value its pointing to, after the local variable array has already "disappeared", the pointer may not be assumed to be pointing to the "correct" values anymore, as that space in memory may have already been reused for something else. Therefore, the array that the pointer is pointing to should be declared in the main scope to ensure it does not go away before referencing it.
 
 2.
-3.
-4.
+	a) double* cat;
+	b) double mouse[5];
+	c) cat = &mouse[4];
+	d) *cat = 25;
+	e) *(mouse+3) = 42;
+	f) cat -= 3;
+	g) cat[1] = 27;
+	h) cat[0] = 54;
+	i) bool b = (*cat == *(cat+1));
+	j) bool d = (cat == mouse);
+
+3. 
+	a)
+		double mean(const double* scores, int numScores)
+		{
+			const double* ptr = scores;
+			double tot = 0;
+			int cursor = 0;
+			while ((ptr + cursor) != (scores + numScores))
+			{
+				tot += *(ptr+cursor);
+				cursor++;
+			}
+			return tot/numScores;
+		}
+
+	b)
+		const char* findTheChar(const char* str, char chr)
+    	{
+	        for (int k = 0; *(str+k) != '\0'; k++)
+	            if (*(str+k) == chr)
+	                return str+k;
+
+	        return nullptr;
+    	}
+
+    c)
+    	const char* findTheChar(const char* str, char chr)
+    	{
+	        while (*str != '\0')
+	        {
+	        	if (*str == chr)
+	        		return str;
+	        		
+	        	str++;
+	        }
+
+	        return nullptr;
+    	}
+4.	
+
 5.
+
 6.
+
