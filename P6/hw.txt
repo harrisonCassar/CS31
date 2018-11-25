@@ -111,13 +111,22 @@
 	        {
 	        	if (*str == chr)
 	        		return str;
-	        		
+
 	        	str++;
 	        }
 
 	        return nullptr;
     	}
-4.	
+
+4. 
+	Output:
+	3		==>	Because this is the result of subtracting the addresses of memory used by the array. Therefore, in other words, it gives you the relative distance between the array element indexed at 5 and the element pointed to by ptr (which is the array element indexed at 2) because of the pointer being incremented by 2 with the line "ptr += 2;" after being initialized to point to array[0] (the return of the function call maxwell with the given inputs).
+	4		==>	Because the function swap1 does nothing to its pointers within its definition, as the inputted pointers are passed by value, not by reference, and therefore the function swap1 is only changing the pointers declared in the local function scope. The function swap2 switches the values pointed to by the pointers generated on elements indexed by 0 and 2 of the array because the function is working with the values pointed to by the inputted pointers.
+	79		==>	The value at this element in the array was changed to the value 79 because of the statement "*(array+1) = 79;" earlier in the code, where the element at 1 relative position forward
+	-1		==>	
+	9		==>	
+	22		==>	
+	19		==>	
 
 5.
 
