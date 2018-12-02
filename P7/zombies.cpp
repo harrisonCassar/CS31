@@ -247,7 +247,7 @@ void Player::moveOrAttack(int dir)
     // If there is a zombie adjacent to the player in the direction
     // dir, attack it.  Otherwise, move the player to that position if
     // possible (i.e., if the move would not be off the edge of the arena).
-  
+
     m_age++;
 
     int r_temp = m_row;
@@ -345,8 +345,16 @@ int Arena::zombieCount() const
 
 int Arena::numZombiesAt(int r, int c) const
 {
-    // TODO:  Return the number of zombies at row r, column c.
-    return 0;  // This implementation compiles, but is incorrect.
+    //Return the number of zombies at row r, column c.
+    int counter = 0;
+
+    for (int i=0; i < m_nZombies; i++)
+    {
+      if (m_zombies[i]->row() == r && m_zombies[i]->col() == c)
+        counter++;
+    }
+
+    return counter;
 }
 
 bool Arena::determineNewPosition(int& r, int& c, int dir) const
