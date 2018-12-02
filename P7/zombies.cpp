@@ -318,7 +318,11 @@ Arena::Arena(int nRows, int nCols)
 
 Arena::~Arena()
 {
-      // TODO:  Delete the player and all remaining dynamically allocated zombies.
+    delete m_player;  //Delete the player and all remaining dynamically allocated zombies.
+    for (int i = 0; i < m_nZombies; i++)
+    {
+      delete m_zombies[i]; 
+    }
 }
 
 int Arena::rows() const
@@ -409,9 +413,24 @@ void Arena::display() const
             grid[r][c] = '.';
 
         // Indicate each zombie's position
-      // TODO:  If one zombie is at some grid point, set the char to 'Z'.
-      //        If it's 2 though 8, set it to '2' through '8'.
-      //        For 9 or more, set it to '9'.
+    for (r = 0; r < rows(); r++)
+        for (c = 0; c < cols(); c++)
+        {
+          if (numZombiesAt(r,c) == 0)
+            continue;
+
+          if (numZombiesAt(r,c) >= 9)
+          {
+            grid[r][c] = 9;
+            continue;
+          }
+          
+          grid[r][c] = numZombiesAt(r,c);
+        }
+
+      //If one zombie is at some grid point, set the char to 'Z'.
+      //If it's 2 though 8, set it to '2' through '8'.
+      //For 9 or more, set it to '9'.
 
         // Indicate player's position
     if (m_player != nullptr)
@@ -482,11 +501,37 @@ bool Arena::addPlayer(int r, int c)
 
 bool Arena::attackZombieAt(int r, int c, int dir)
 {
-      // TODO:  Attack one zombie at row r, column c if at least one is at
+      // Attack one zombie at row r, column c if at least one is at
       // that position.  If the zombie does not survive the injury, destroy the
       // zombie object, removing it from the arena, and return true.  Otherwise,
       // return false (no zombie at (r,c), or zombie didn't die).
-    return false;  // This implementation compiles, but is incorrect.
+
+    if (numZombiesAt(r,c) <= 0)
+      return false;
+
+    for (int i=m_nZombies-1; i >= 0; i--)
+    {
+      if (m_zombies[i]->row() == r && m_zombies[i]->col() == c)
+      {
+        if (m_zombies[i]->getAttacked(dir))
+        {
+          delete m_zombies[i];
+
+          for (int j = i+1; j < m_nZombies; j++)
+          {
+            m_zombies[j-1] = m_zombies[j];
+          }
+
+          m_nZombies--;
+
+          return true;
+        }
+
+        return false;
+      }
+    }
+
+    return false;
 }
 
 bool Arena::moveZombies()
