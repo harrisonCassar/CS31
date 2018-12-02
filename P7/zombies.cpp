@@ -244,10 +244,47 @@ void Player::stand()
 
 void Player::moveOrAttack(int dir)
 {
+    // If there is a zombie adjacent to the player in the direction
+    // dir, attack it.  Otherwise, move the player to that position if
+    // possible (i.e., if the move would not be off the edge of the arena).
+  
     m_age++;
-      // TODO:  If there is a zombie adjacent to the player in the direction
-      // dir, attack it.  Otherwise, move the player to that position if
-      // possible (i.e., if the move would not be off the edge of the arena).
+
+    int r_temp = m_row;
+    int c_temp = m_col;
+
+    switch (dir)
+    {
+      case UP:
+        r_temp--;
+        break;
+
+      case DOWN:
+        r_temp++;
+        break;
+
+      case LEFT:
+        c_temp--;
+        break;
+
+      case RIGHT:
+        c_temp++;
+        break;
+
+      default:
+        return false;
+    }
+
+    for (int i=0; i < m_arena->zombieCount; i++)
+    {
+      if (m_arena->numZombiesAt(r_temp,c_temp) > 0)
+      {
+          m_arena->attackZombieAt(r_temp,c_temp,dir);
+          return;
+      }
+    }
+
+    m_arena->determineNewPosition(m_row,m_col,dir);
 }
 
 bool Player::isDead() const
