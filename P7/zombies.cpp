@@ -272,10 +272,10 @@ void Player::moveOrAttack(int dir)
         break;
 
       default:
-        return false;
+        return;
     }
 
-    for (int i=0; i < m_arena->zombieCount; i++)
+    for (int i=0; i < m_arena->zombieCount(); i++)
     {
       if (m_arena->numZombiesAt(r_temp,c_temp) > 0)
       {
@@ -424,8 +424,8 @@ void Arena::display() const
             grid[r][c] = 9;
             continue;
           }
-          
-          grid[r][c] = numZombiesAt(r,c);
+
+          grid[r][c] = static_cast<char>(numZombiesAt(r,c));
         }
 
       //If one zombie is at some grid point, set the char to 'Z'.
