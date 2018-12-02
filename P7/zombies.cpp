@@ -177,21 +177,22 @@ void Zombie::move()
 
 bool Zombie::getAttacked(int dir)  // return true if dies
 {
-      if (m_injured)
-        return true;
-      else
-      {
-        m_injured = true;
-        return false;
-      }
+    if (m_injured)
+      return true;
+    else
+      m_injured = true;
       
-      // TODO:  If the zombie has been attacked once before, return true
+    if (m_arena->determineNewPosition(m_row, m_col, dir) == false)
+      return true;
+
+      // If the zombie has been attacked once before, return true
       // (since a second attack destroys a zombie).  Otherwise, if possible,
       // move the zombie in one position in direction dir and return false
       // (since it survived the injury).  Otherwise, do not move, but return
       // true (since the momentum from the blow would bump the zombie against
       // the wall, dealing it an additional fatal injury).
-    return false;  // This implementation compiles, but is incorrect.
+
+    return false; //return false if survived the knockback
 }
 
 ///////////////////////////////////////////////////////////////////////////
