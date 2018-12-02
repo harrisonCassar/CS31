@@ -252,8 +252,8 @@ void Player::moveOrAttack(int dir)
 
 bool Player::isDead() const
 {
-      // TODO:  TRIVIAL:  Return whether the player is dead.
-    return false;  // This implementation compiles, but is incorrect.
+      //Return whether the player is dead.
+    return m_dead;
 }
 
 void Player::setDead()
@@ -286,16 +286,14 @@ Arena::~Arena()
 
 int Arena::rows() const
 {
-      // TODO:  TRIVIAL:  Return the number of rows in the arena.
-      // Delete the following line and replace it with the correct code.
-    return 1;  // This implementation compiles, but is incorrect.
+      //Return the number of rows in the arena.
+    return m_rows;
 }
 
 int Arena::cols() const
 {
-      // TODO:  TRIVIAL:  Return the number of columns in the arena.
-      // Delete the following line and replace it with the correct code.
-    return 1;  // This implementation compiles, but is incorrect.
+      //Return the number of columns in the arena.
+    return m_cols;
 }
 
 Player* Arena::player() const
@@ -416,8 +414,14 @@ bool Arena::addZombie(int r, int c)
       // in this scenario (which won't occur in this game):  MAXZOMBIES
       // are added, then some are destroyed, then more are added.
 
-      // TODO:  Implement this.
-    return false;  // This implementation compiles, but is incorrect.
+    if (m_nZombies == MAXZOMBIES)
+      return false;
+
+    m_zombies[m_nZombies] = new Zombie(this,r,c);
+
+    m_nZombies++;
+
+    return true;
 }
 
 bool Arena::addPlayer(int r, int c)
@@ -444,9 +448,14 @@ bool Arena::moveZombies()
 {
     for (int k = 0; k < m_nZombies; k++)
     {
-      // TODO:  Have the k-th zombie in the arena make one move.
-      //        If that move results in that zombie being in the same
-      //        position as the player, the player dies.
+      m_zombies[k]->move();
+
+      if (m_zombies[k]->row() == m_player->row() && m_zombies[k]->col() == m_player->col())
+        m_player->setDead();
+
+      //Have the k-th zombie in the arena make one move.
+      //If that move results in that zombie being in the same
+      //position as the player, the player dies.
     }
 
       // return true if the player is still alive, false otherwise
