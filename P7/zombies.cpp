@@ -419,13 +419,19 @@ void Arena::display() const
           if (numZombiesAt(r,c) == 0)
             continue;
 
-          if (numZombiesAt(r,c) >= 9)
+          if (numZombiesAt(r,c) == 1)
           {
-            grid[r][c] = 9;
+            grid[r][c] = 'Z';
             continue;
           }
 
-          grid[r][c] = static_cast<char>(numZombiesAt(r,c));
+          if (numZombiesAt(r,c) >= 9)
+          {
+            grid[r][c] = '9';
+            continue;
+          }
+
+          grid[r][c] = '0' + numZombiesAt(r,c);
         }
 
       //If one zombie is at some grid point, set the char to 'Z'.
